@@ -16,7 +16,7 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    'Dist/styles/style.css': 'Dev/styles/style.scss'
+                    'styles/style.css': 'styles/style.scss'
                 }
             }
         },
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
         },
         watch: {
             styles: {
-                files: ['Dev/styles/**/*.scss'],
+                files: ['styles/**/*.scss'],
                 tasks: ['sass', 'postcss'],
                 options: {
                     spawn: false

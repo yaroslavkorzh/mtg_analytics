@@ -3,33 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="styles/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/source-sans-pro.css">
+    <link rel="stylesheet" href="styles/jquery-ui.min.css">
+    <link rel="stylesheet" href="styles/semantic.min.css">
+
+    <link rel="stylesheet" href="styles/style.css">
+
 </head>
 <body>
-<select id="formatSelect" class="__ts-browser__select semi-square green">
-    <option class="__ts-browser__select--option" value="standart">Standart</option>
-    <option class="__ts-browser__select--option" value="modern">Modern</option>
-    <option class="__ts-browser__select--option" value="legacy">Legacy</option>
-    <option class="__ts-browser__select--option" value="vintage">Vintage</option>
-    <option class="__ts-browser__select--option" value="commander">Commander</option>
-</select>
-
-<div id="container" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<div id="test" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<div id="test2" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<div id="test3" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<div id="test4" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<div id="test5" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<div id="test6" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<div id="test7" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<div id="test8" style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto"></div>
-<!--<script src="/libraries/require.js"></script>-->
-<!--<script src="/libraries/common.js"></script>-->
 <script src="/js/libraries/jquery.min.js"></script>
+<script src="/js/libraries/semantic.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script src="/app.js"></script>
+
+
+    <select id="formatSelect" class="__ts-browser__select semi-square green">
+        <option class="__ts-browser__select--option" value="standart">Standart</option>
+        <option class="__ts-browser__select--option" value="modern">Modern</option>
+        <option class="__ts-browser__select--option" value="legacy">Legacy</option>
+        <option class="__ts-browser__select--option" value="vintage">Vintage</option>
+        <option class="__ts-browser__select--option" value="commander">Commander</option>
+    </select>
+    <div class="ui top attached tabular menu">
+        <a class="item active" data-tab="first">First</a>
+        <a class="item" data-tab="second">Second</a>
+        <a class="item" data-tab="third">Third</a>
+    </div>
+    <div class="ui bottom attached tab segment active" data-tab="first">
+        <div id="container" class="chart-container "></div>
+    </div>
+    <div class="ui bottom attached tab segment " data-tab="second">
+        <div id="test" class="chart-container "></div>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="third">
+        <div id="test2" class="chart-container "></div>
+    </div>
+    <!-- style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto" -->
+
+
+
+    <div id="test3" class="chart-container hidden"></div>
+    <div id="test4" class="chart-container hidden"></div>
+    <div id="test5" class="chart-container hidden"></div>
+    <div id="test6" class="chart-container hidden"></div>
+    <div id="test7" class="chart-container hidden"></div>
+    <div id="test8" class="chart-container hidden"></div>
+<!--<script src="/libraries/require.js"></script>-->
+<!--<script src="/libraries/common.js"></script>-->
 </body>
 </html>

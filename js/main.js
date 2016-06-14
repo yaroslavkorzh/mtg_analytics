@@ -1,9 +1,8 @@
 var mtg = require('mtgtop8');
-console.log('test');
+console.log('mtg analytics test');
 
 $(document).ready(function () {
     var pages = 10;
-
 
     function controllerConstructor() {
         var controller = {};
@@ -43,6 +42,7 @@ $(document).ready(function () {
             }
             else {
                 this.renderMetagame();
+                this.renderTest();
             }
             this.initHandlers();
         };

@@ -1,5 +1,15 @@
 module.exports = function(grunt) {
     grunt.initConfig({
+        browserify: {
+            all: {
+                files: {
+                    'app.js': ['js/main.js']
+                },
+                options: {
+
+                }
+            }
+        },
         sass: {
             dist: {
                 options: {
@@ -74,17 +84,16 @@ module.exports = function(grunt) {
 
     });
 
+    grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks('grunt-newer');
-    grunt.loadNpmTasks('grunt-browserify');
 
-    //grunt.registerTask("default", ["grunt-browserify"]);
-    grunt.registerTask("default", ["newer:sass", "newer:concat", "newer:postcss", "watch"]);
-    grunt.registerTask("all", ["sass", "concat", "postcss"]);
+    grunt.registerTask("default", ['browserify', "newer:sass", "newer:concat", "newer:postcss", "watch"]);
+    grunt.registerTask("all", ["sass", "concat", "postcss", 'browserify']);
     grunt.registerTask("dist", ["uglify"]);
 
 };

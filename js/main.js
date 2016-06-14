@@ -42,7 +42,7 @@ $(document).ready(function () {
             }
             else {
                 this.renderMetagame();
-                this.renderTest();
+                //this.renderTest();
             }
             this.initHandlers();
         };
@@ -80,7 +80,6 @@ $(document).ready(function () {
 
             return result;
         };
-
         controller.renderStats = function () {
             this.renderMetagame();
             this.renderDeck();
@@ -789,7 +788,6 @@ $(document).ready(function () {
 
         return controller;
     }
-
     document.analytics = controllerConstructor();
     document.analytics.init();
 

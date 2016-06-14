@@ -77,8 +77,8 @@ module.exports = function(grunt) {
                 }
             },
             scripts: {
-                files: ['Dev/scripts/**/*.js'],
-                tasks: ['concat']
+                files: ['js/**/*.js'],
+                tasks: ['default']
             }
         },
 

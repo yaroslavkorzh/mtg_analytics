@@ -79,8 +79,6 @@ $(document).ready(function () {
 
         controller.init = function () {
             console.log('init');
-
-
             this.selectedFormat = this.formats.standart;
             var reloaded = this.reload();
             if (!reloaded) {
@@ -89,6 +87,7 @@ $(document).ready(function () {
             else {
                 this.renderMetagame();
                 this.analyzeArchetypes();
+                this.renderTest();
             }
             this.initHandlers();
         };
@@ -192,7 +191,7 @@ $(document).ready(function () {
                 });
                 console.log(index,' data total:',totalCount, ' data:', drilldown);
             });
-            
+
 
             // Create the chart
             $('#test').highcharts({
@@ -472,366 +471,366 @@ $(document).ready(function () {
                 }]
             });
 
-            //$('#test3').highcharts({
-            //    chart: {
-            //        type: 'column'
-            //    },
-            //    title: {
-            //        text: 'Stacked column chart'
-            //    },
-            //    xAxis: {
-            //        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-            //    },
-            //    yAxis: {
-            //        min: 0,
-            //        title: {
-            //            text: 'Total fruit consumption'
-            //        }
-            //    },
-            //    tooltip: {
-            //        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            //        shared: true
-            //    },
-            //    plotOptions: {
-            //        column: {
-            //            stacking: 'percent'
-            //        }
-            //    },
-            //    series: [{
-            //        name: 'John',
-            //        data: [5, 3, 4, 7, 2]
-            //    }, {
-            //        name: 'Jane',
-            //        data: [2, 2, 3, 2, 1]
-            //    }, {
-            //        name: 'Joe',
-            //        data: [3, 4, 4, 2, 5]
-            //    }]
-            //});
-            //
-            //$('#test4').highcharts({
-            //    chart: {
-            //        type: 'column'
-            //    },
-            //    title: {
-            //        text: 'World\'s largest cities per 2014'
-            //    },
-            //    subtitle: {
-            //        text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-            //    },
-            //    xAxis: {
-            //        type: 'category',
-            //        labels: {
-            //            rotation: -45,
-            //            style: {
-            //                fontSize: '13px',
-            //                fontFamily: 'Verdana, sans-serif'
-            //            }
-            //        }
-            //    },
-            //    yAxis: {
-            //        min: 0,
-            //        title: {
-            //            text: 'Population (millions)'
-            //        }
-            //    },
-            //    legend: {
-            //        enabled: false
-            //    },
-            //    tooltip: {
-            //        pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
-            //    },
-            //    series: [{
-            //        name: 'Population',
-            //        data: [
-            //            ['Shanghai', 23.7],
-            //            ['Lagos', 16.1],
-            //            ['Istanbul', 14.2],
-            //            ['Karachi', 14.0],
-            //            ['Mumbai', 12.5],
-            //            ['Moscow', 12.1],
-            //            ['São Paulo', 11.8],
-            //            ['Beijing', 11.7],
-            //            ['Guangzhou', 11.1],
-            //            ['Delhi', 11.1],
-            //            ['Shenzhen', 10.5],
-            //            ['Seoul', 10.4],
-            //            ['Jakarta', 10.0],
-            //            ['Kinshasa', 9.3],
-            //            ['Tianjin', 9.3],
-            //            ['Tokyo', 9.0],
-            //            ['Cairo', 8.9],
-            //            ['Dhaka', 8.9],
-            //            ['Mexico City', 8.9],
-            //            ['Lima', 8.9]
-            //        ],
-            //        dataLabels: {
-            //            enabled: true,
-            //            rotation: -90,
-            //            color: '#FFFFFF',
-            //            align: 'right',
-            //            format: '{point.y:.1f}', // one decimal
-            //            y: 10, // 10 pixels down from the top
-            //            style: {
-            //                fontSize: '13px',
-            //                fontFamily: 'Verdana, sans-serif'
-            //            }
-            //        }
-            //    }]
-            //});
-            //
-            //// Create the chart
-            //$('#test5').highcharts({
-            //    chart: {
-            //        type: 'column'
-            //    },
-            //    title: {
-            //        text: 'Browser market shares. January, 2015 to May, 2015'
-            //    },
-            //    subtitle: {
-            //        text: 'Click the columns to view versions. Source: <a href="http://netmarketshare.com">netmarketshare.com</a>.'
-            //    },
-            //    xAxis: {
-            //        type: 'category'
-            //    },
-            //    yAxis: {
-            //        title: {
-            //            text: 'Total percent market share'
-            //        }
-            //
-            //    },
-            //    legend: {
-            //        enabled: false
-            //    },
-            //    plotOptions: {
-            //        series: {
-            //            borderWidth: 0,
-            //            dataLabels: {
-            //                enabled: true,
-            //                format: '{point.y:.1f}%'
-            //            }
-            //        }
-            //    },
-            //
-            //    tooltip: {
-            //        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            //        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-            //    },
-            //
-            //    series: [{
-            //        name: 'Brands',
-            //        colorByPoint: true,
-            //        data: [{
-            //            name: 'Microsoft Internet Explorer',
-            //            y: 56.33,
-            //            drilldown: 'Microsoft Internet Explorer'
-            //        }, {
-            //            name: 'Chrome',
-            //            y: 24.03,
-            //            drilldown: 'Chrome'
-            //        }, {
-            //            name: 'Firefox',
-            //            y: 10.38,
-            //            drilldown: 'Firefox'
-            //        }, {
-            //            name: 'Safari',
-            //            y: 4.77,
-            //            drilldown: 'Safari'
-            //        }, {
-            //            name: 'Opera',
-            //            y: 0.91,
-            //            drilldown: 'Opera'
-            //        }, {
-            //            name: 'Proprietary or Undetectable',
-            //            y: 0.2,
-            //            drilldown: null
-            //        }]
-            //    }],
-            //    drilldown: {
-            //        series: [{
-            //            name: 'Microsoft Internet Explorer',
-            //            id: 'Microsoft Internet Explorer',
-            //            data: [
-            //                [
-            //                    'v11.0',
-            //                    24.13
-            //                ],
-            //                [
-            //                    'v8.0',
-            //                    17.2
-            //                ],
-            //                [
-            //                    'v9.0',
-            //                    8.11
-            //                ],
-            //                [
-            //                    'v10.0',
-            //                    5.33
-            //                ],
-            //                [
-            //                    'v6.0',
-            //                    1.06
-            //                ],
-            //                [
-            //                    'v7.0',
-            //                    0.5
-            //                ]
-            //            ]
-            //        }, {
-            //            name: 'Chrome',
-            //            id: 'Chrome',
-            //            data: [
-            //                [
-            //                    'v40.0',
-            //                    5
-            //                ],
-            //                [
-            //                    'v41.0',
-            //                    4.32
-            //                ],
-            //                [
-            //                    'v42.0',
-            //                    3.68
-            //                ],
-            //                [
-            //                    'v39.0',
-            //                    2.96
-            //                ],
-            //                [
-            //                    'v36.0',
-            //                    2.53
-            //                ],
-            //                [
-            //                    'v43.0',
-            //                    1.45
-            //                ],
-            //                [
-            //                    'v31.0',
-            //                    1.24
-            //                ],
-            //                [
-            //                    'v35.0',
-            //                    0.85
-            //                ],
-            //                [
-            //                    'v38.0',
-            //                    0.6
-            //                ],
-            //                [
-            //                    'v32.0',
-            //                    0.55
-            //                ],
-            //                [
-            //                    'v37.0',
-            //                    0.38
-            //                ],
-            //                [
-            //                    'v33.0',
-            //                    0.19
-            //                ],
-            //                [
-            //                    'v34.0',
-            //                    0.14
-            //                ],
-            //                [
-            //                    'v30.0',
-            //                    0.14
-            //                ]
-            //            ]
-            //        }, {
-            //            name: 'Firefox',
-            //            id: 'Firefox',
-            //            data: [
-            //                [
-            //                    'v35',
-            //                    2.76
-            //                ],
-            //                [
-            //                    'v36',
-            //                    2.32
-            //                ],
-            //                [
-            //                    'v37',
-            //                    2.31
-            //                ],
-            //                [
-            //                    'v34',
-            //                    1.27
-            //                ],
-            //                [
-            //                    'v38',
-            //                    1.02
-            //                ],
-            //                [
-            //                    'v31',
-            //                    0.33
-            //                ],
-            //                [
-            //                    'v33',
-            //                    0.22
-            //                ],
-            //                [
-            //                    'v32',
-            //                    0.15
-            //                ]
-            //            ]
-            //        }, {
-            //            name: 'Safari',
-            //            id: 'Safari',
-            //            data: [
-            //                [
-            //                    'v8.0',
-            //                    2.56
-            //                ],
-            //                [
-            //                    'v7.1',
-            //                    0.77
-            //                ],
-            //                [
-            //                    'v5.1',
-            //                    0.42
-            //                ],
-            //                [
-            //                    'v5.0',
-            //                    0.3
-            //                ],
-            //                [
-            //                    'v6.1',
-            //                    0.29
-            //                ],
-            //                [
-            //                    'v7.0',
-            //                    0.26
-            //                ],
-            //                [
-            //                    'v6.2',
-            //                    0.17
-            //                ]
-            //            ]
-            //        }, {
-            //            name: 'Opera',
-            //            id: 'Opera',
-            //            data: [
-            //                [
-            //                    'v12.x',
-            //                    0.34
-            //                ],
-            //                [
-            //                    'v28',
-            //                    0.24
-            //                ],
-            //                [
-            //                    'v27',
-            //                    0.17
-            //                ],
-            //                [
-            //                    'v29',
-            //                    0.16
-            //                ]
-            //            ]
-            //        }]
-            //    }
-            //});
+            $('#test3').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Stacked column chart'
+                },
+                xAxis: {
+                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total fruit consumption'
+                    }
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                    shared: true
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'percent'
+                    }
+                },
+                series: [{
+                    name: 'John',
+                    data: [5, 3, 4, 7, 2]
+                }, {
+                    name: 'Jane',
+                    data: [2, 2, 3, 2, 1]
+                }, {
+                    name: 'Joe',
+                    data: [3, 4, 4, 2, 5]
+                }]
+            });
+
+            $('#test4').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'World\'s largest cities per 2014'
+                },
+                subtitle: {
+                    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                },
+                xAxis: {
+                    type: 'category',
+                    labels: {
+                        rotation: -45,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Population (millions)'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+                },
+                series: [{
+                    name: 'Population',
+                    data: [
+                        ['Shanghai', 23.7],
+                        ['Lagos', 16.1],
+                        ['Istanbul', 14.2],
+                        ['Karachi', 14.0],
+                        ['Mumbai', 12.5],
+                        ['Moscow', 12.1],
+                        ['São Paulo', 11.8],
+                        ['Beijing', 11.7],
+                        ['Guangzhou', 11.1],
+                        ['Delhi', 11.1],
+                        ['Shenzhen', 10.5],
+                        ['Seoul', 10.4],
+                        ['Jakarta', 10.0],
+                        ['Kinshasa', 9.3],
+                        ['Tianjin', 9.3],
+                        ['Tokyo', 9.0],
+                        ['Cairo', 8.9],
+                        ['Dhaka', 8.9],
+                        ['Mexico City', 8.9],
+                        ['Lima', 8.9]
+                    ],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        format: '{point.y:.1f}', // one decimal
+                        y: 10, // 10 pixels down from the top
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                }]
+            });
+
+            // Create the chart
+            $('#test5').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Browser market shares. January, 2015 to May, 2015'
+                },
+                subtitle: {
+                    text: 'Click the columns to view versions. Source: <a href="http://netmarketshare.com">netmarketshare.com</a>.'
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total percent market share'
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.1f}%'
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                },
+
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Microsoft Internet Explorer',
+                        y: 56.33,
+                        drilldown: 'Microsoft Internet Explorer'
+                    }, {
+                        name: 'Chrome',
+                        y: 24.03,
+                        drilldown: 'Chrome'
+                    }, {
+                        name: 'Firefox',
+                        y: 10.38,
+                        drilldown: 'Firefox'
+                    }, {
+                        name: 'Safari',
+                        y: 4.77,
+                        drilldown: 'Safari'
+                    }, {
+                        name: 'Opera',
+                        y: 0.91,
+                        drilldown: 'Opera'
+                    }, {
+                        name: 'Proprietary or Undetectable',
+                        y: 0.2,
+                        drilldown: null
+                    }]
+                }],
+                drilldown: {
+                    series: [{
+                        name: 'Microsoft Internet Explorer',
+                        id: 'Microsoft Internet Explorer',
+                        data: [
+                            [
+                                'v11.0',
+                                24.13
+                            ],
+                            [
+                                'v8.0',
+                                17.2
+                            ],
+                            [
+                                'v9.0',
+                                8.11
+                            ],
+                            [
+                                'v10.0',
+                                5.33
+                            ],
+                            [
+                                'v6.0',
+                                1.06
+                            ],
+                            [
+                                'v7.0',
+                                0.5
+                            ]
+                        ]
+                    }, {
+                        name: 'Chrome',
+                        id: 'Chrome',
+                        data: [
+                            [
+                                'v40.0',
+                                5
+                            ],
+                            [
+                                'v41.0',
+                                4.32
+                            ],
+                            [
+                                'v42.0',
+                                3.68
+                            ],
+                            [
+                                'v39.0',
+                                2.96
+                            ],
+                            [
+                                'v36.0',
+                                2.53
+                            ],
+                            [
+                                'v43.0',
+                                1.45
+                            ],
+                            [
+                                'v31.0',
+                                1.24
+                            ],
+                            [
+                                'v35.0',
+                                0.85
+                            ],
+                            [
+                                'v38.0',
+                                0.6
+                            ],
+                            [
+                                'v32.0',
+                                0.55
+                            ],
+                            [
+                                'v37.0',
+                                0.38
+                            ],
+                            [
+                                'v33.0',
+                                0.19
+                            ],
+                            [
+                                'v34.0',
+                                0.14
+                            ],
+                            [
+                                'v30.0',
+                                0.14
+                            ]
+                        ]
+                    }, {
+                        name: 'Firefox',
+                        id: 'Firefox',
+                        data: [
+                            [
+                                'v35',
+                                2.76
+                            ],
+                            [
+                                'v36',
+                                2.32
+                            ],
+                            [
+                                'v37',
+                                2.31
+                            ],
+                            [
+                                'v34',
+                                1.27
+                            ],
+                            [
+                                'v38',
+                                1.02
+                            ],
+                            [
+                                'v31',
+                                0.33
+                            ],
+                            [
+                                'v33',
+                                0.22
+                            ],
+                            [
+                                'v32',
+                                0.15
+                            ]
+                        ]
+                    }, {
+                        name: 'Safari',
+                        id: 'Safari',
+                        data: [
+                            [
+                                'v8.0',
+                                2.56
+                            ],
+                            [
+                                'v7.1',
+                                0.77
+                            ],
+                            [
+                                'v5.1',
+                                0.42
+                            ],
+                            [
+                                'v5.0',
+                                0.3
+                            ],
+                            [
+                                'v6.1',
+                                0.29
+                            ],
+                            [
+                                'v7.0',
+                                0.26
+                            ],
+                            [
+                                'v6.2',
+                                0.17
+                            ]
+                        ]
+                    }, {
+                        name: 'Opera',
+                        id: 'Opera',
+                        data: [
+                            [
+                                'v12.x',
+                                0.34
+                            ],
+                            [
+                                'v28',
+                                0.24
+                            ],
+                            [
+                                'v27',
+                                0.17
+                            ],
+                            [
+                                'v29',
+                                0.16
+                            ]
+                        ]
+                    }]
+                }
+            });
         };
         controller.renderDeck = function () {
             var self = this;

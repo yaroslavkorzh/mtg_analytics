@@ -92,7 +92,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks('grunt-newer');
 
-    grunt.registerTask("default", ['browserify', "newer:sass", "newer:concat", "newer:postcss", "watch"]);
+    grunt.registerTask("default", ['browserify', "newer:sass", "newer:concat", "watch"]);
     grunt.registerTask("all", ["sass", "concat", "postcss", 'browserify']);
     grunt.registerTask("dist", ["uglify"]);
 

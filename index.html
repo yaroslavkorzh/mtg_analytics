@@ -6,55 +6,83 @@
     <link rel="stylesheet" href="styles/font-awesome.min.css">
     <link rel="stylesheet" href="styles/source-sans-pro.css">
     <link rel="stylesheet" href="styles/jquery-ui.min.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="styles/semantic.min.css">
 
     <link rel="stylesheet" href="styles/style.css">
 
 </head>
 <body>
+
+<div class="ui menu">
+    <div class="item">
+        <div class="ui icon input">
+            <input type="text" placeholder="Search...">
+            <i class="search icon"></i>
+        </div>
+    </div>
+    <div class="item">
+        <div class="ui icon input">
+            <select id="formatSelect" class="__ts-browser__select semi-square green">
+                <option class="__ts-browser__select--option" value="standart">Standart</option>
+                <option class="__ts-browser__select--option" value="modern">Modern</option>
+                <option class="__ts-browser__select--option" value="legacy">Legacy</option>
+                <option class="__ts-browser__select--option" value="vintage">Vintage</option>
+                <option class="__ts-browser__select--option" value="commander">Commander</option>
+            </select>
+        </div>
+    </div>
+    <div class="right item">
+        <div class="ui action input">
+            <input type="text" placeholder="Navigate to...">
+            <div class="ui button">Go</div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="ui top attached tabular menu">
+    <a class="item active" data-tab="first">Metagame</a>
+    <a class="item" data-tab="second">Archetypes</a>
+    <a class="item" data-tab="third">Other data</a>
+    <a class="item" data-tab="fourth">BS Calendar</a>
+    <a class="item" data-tab="five">Google Calendar</a>
+</div>
+<div class="ui bottom attached tab segment active" data-tab="first">
+    <div id="container" class="chart-container "></div>
+</div>
+<div class="ui bottom attached tab segment " data-tab="second">
+    <div id="test" class="chart-container"></div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="third">
+    <div id="test2" class="chart-container "></div>
+    <div id="test3" class="chart-container "></div>
+    <div id="test4" class="chart-container "></div>
+    <div id="test5" class="chart-container "></div>
+    <div id="test6" class="chart-container "></div>
+    <div id="test7" class="chart-container "></div>
+    <div id="test8" class="chart-container "></div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="fourth">
+    <div class="bs-calendar" id="events"></div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="five">
+    <iframe src="https://calendar.google.com/calendar/embed?src=5kem7ieveeme63so8i4fdep5c4%40group.calendar.google.com&ctz=Europe/Kiev" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
+<!-- style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto" -->
+
 <script src="/js/libraries/jquery.min.js"></script>
+<script src="/js/libraries/jquery-ui.min.js"></script>
+<script src="/js/libraries/bootstrap.min.js"></script>
 <script src="/js/libraries/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script src="/app.js"></script>
-
-
-    <select id="formatSelect" class="__ts-browser__select semi-square green">
-        <option class="__ts-browser__select--option" value="standart">Standart</option>
-        <option class="__ts-browser__select--option" value="modern">Modern</option>
-        <option class="__ts-browser__select--option" value="legacy">Legacy</option>
-        <option class="__ts-browser__select--option" value="vintage">Vintage</option>
-        <option class="__ts-browser__select--option" value="commander">Commander</option>
-    </select>
-    <div class="ui top attached tabular menu">
-        <a class="item active" data-tab="first">Metagame</a>
-        <a class="item" data-tab="second">Archetypes</a>
-        <a class="item" data-tab="third">Other data</a>
-    </div>
-    <div class="ui bottom attached tab segment active" data-tab="first">
-        <div id="container" class="chart-container "></div>
-    </div>
-    <div class="ui bottom attached tab segment " data-tab="second">
-        <div id="test" class="chart-container "></div>
-    </div>
-    <div class="ui bottom attached tab segment" data-tab="third">
-        <div id="test2" class="chart-container "></div>
-        <div id="test3" class="chart-container "></div>
-        <div id="test4" class="chart-container "></div>
-        <div id="test5" class="chart-container "></div>
-        <div id="test6" class="chart-container "></div>
-        <div id="test7" class="chart-container "></div>
-        <div id="test8" class="chart-container "></div>
-    </div>
-    <!-- style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto" -->
-
-
-
-
-<!--<script src="/libraries/require.js"></script>-->
-<!--<script src="/libraries/common.js"></script>-->
 </body>
 </html>

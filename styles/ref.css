@@ -319,7 +319,7 @@ a.hilighted {
 }
 
 #nav .dots.loading {
-	background: url(./../images/ajax-loader.gif) no-repeat center;
+	background: url(images/ajax-loader.gif) no-repeat center;
 }
 #nav .dots.error {
 	color: red;
@@ -484,19 +484,19 @@ form#optionAttribute td input[type="checkbox"] {
 }
 
 .pencil {
-	background-image: url(./../images/edit.png);
+	background-image: url(images/edit.png);
 }
 
 .remove {
-	background-image: url(./../images/delete.gif);
+	background-image: url(images/delete.gif);
 }
 
 .add {
-	background-image: url(./../images/add.png);
+	background-image: url(images/add.png);
 }
 
 .copy {
-	background-image: url(./../images/copy.png);
+	background-image: url(images/copy.png);
 }
 
 .pencil, .add, .remove, .copy {

@@ -15,16 +15,16 @@ $(document).ready(function () {
     });
 
     /*
-    var selDates = ['update'];
-    var events = this.events();
-    for (var i = 0; i < events.length; i++) {
-        var event = events[i];
-        selDates.push(new Date(event.endDate()))
-    }
+     var selDates = ['update'];
+     var events = this.events();
+     for (var i = 0; i < events.length; i++) {
+     var event = events[i];
+     selDates.push(new Date(event.endDate()))
+     }
 
-    if (selDates.length > 1) {
-        $dashboardDatepicker.datepicker.apply($dashboardDatepicker, selDates);
-    }*/
+     if (selDates.length > 1) {
+     $dashboardDatepicker.datepicker.apply($dashboardDatepicker, selDates);
+     }*/
 
     //GET https://www.googleapis.com/calendar/v3/calendars/calendarId/events
     // calendarId = 5kem7ieveeme63so8i4fdep5c4
@@ -155,7 +155,7 @@ $(document).ready(function () {
             this.renderDeck();
             //this.renderTest()
         };
-        controller.analyzeArchetypes = function(){
+        controller.analyzeArchetypes = function () {
             //deck_types
             var self = this;
             var data = [];
@@ -166,16 +166,16 @@ $(document).ready(function () {
              y: 56.33,
              drilldown: 'Microsoft Internet Explorer'
              }
-            * */
+             * */
 
             $.each(this.deck_types, function (index, value) {
                 var searchPattern = '';
                 var patterns = [];
 
                 patterns = self.deck_types[index][self.selectedFormat];
-                for(var i= 0; i<patterns.length; i++){
+                for (var i = 0; i < patterns.length; i++) {
                     searchPattern = searchPattern + patterns[i];
-                    if(i<patterns.length-1){
+                    if (i < patterns.length - 1) {
                         searchPattern += '|'
                     }
                 }
@@ -186,7 +186,7 @@ $(document).ready(function () {
 
                 for (var k = 0; k < self.metagame[self.selectedFormat].length; k++) {
                     var archetype = self.metagame[self.selectedFormat][k];
-                    if(archetype.count > 0 && archetype.name.match(query)){
+                    if (archetype.count > 0 && archetype.name.match(query)) {
                         /*{
                          name: 'Microsoft Internet Explorer',
                          id: 'Microsoft Internet Explorer',
@@ -214,12 +214,13 @@ $(document).ready(function () {
                     id: index,
                     data: drilldown
                 });
-                console.log(index,' data total:',totalCount, ' data:', drilldown);
+                console.log(index, ' data total:', totalCount, ' data:', drilldown);
             });
 
             // Create the chart
             $('#test').highcharts({
                 chart: {
+                    height: 700,
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
@@ -234,7 +235,7 @@ $(document).ready(function () {
                 plotOptions: {
                     pie: {
                         slicedOffset: 0,
-                        size:'100%',
+                        size: '100%',
                         allowPointSelect: true,
                         cursor: 'pointer',
                         dataLabels: {
@@ -256,20 +257,20 @@ $(document).ready(function () {
                     series: drilldowns
                 }
             });
-            var archetypes = $('#test').highcharts();
-            $('#test').resizable({
-                // On resize, set the chart size to that of the
-                // resizer minus padding. If your chart has a lot of data or other
-                // content, the redrawing might be slow. In that case, we recommend
-                // that you use the 'stop' event instead of 'resize'.
-                resize: function () {
-                    archetypes.setSize(
-                        this.offsetWidth - 20,
-                        this.offsetHeight - 40,
-                        false
-                    );
-                }
-            });
+            //var archetypes = $('#test').highcharts();
+            //$('#test').resizable({
+            //    // On resize, set the chart size to that of the
+            //    // resizer minus padding. If your chart has a lot of data or other
+            //    // content, the redrawing might be slow. In that case, we recommend
+            //    // that you use the 'stop' event instead of 'resize'.
+            //    resize: function () {
+            //        archetypes.setSize(
+            //            this.offsetWidth - 20,
+            //            this.offsetHeight - 40,
+            //            false
+            //        );
+            //    }
+            //});
 
         };
         controller.renderArchetypes = function (format) {
@@ -286,7 +287,7 @@ $(document).ready(function () {
             var renderData = [];
             for (var k = 0; k < this.metagame[this.selectedFormat].length; k++) {
                 var archetype = this.metagame[this.selectedFormat][k];
-                if(archetype.count > 0){
+                if (archetype.count > 0) {
                     renderData.push({name: archetype.name, y: archetype.count, count: archetype.count});
                 }
 
@@ -295,6 +296,7 @@ $(document).ready(function () {
             // Build the chart
             $('#container').highcharts({
                 chart: {
+                    height: 750,
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
@@ -308,7 +310,7 @@ $(document).ready(function () {
                 },
                 plotOptions: {
                     pie: {
-                        size:'100%',
+                        size: '100%',
                         allowPointSelect: true,
                         cursor: 'pointer',
                         dataLabels: {
@@ -369,7 +371,7 @@ $(document).ready(function () {
                     useHTML: true
                 },
                 plotOptions: {
-                    size:'100%',
+                    size: '100%',
                     column: {
                         pointPadding: 0.2,
                         borderWidth: 0
@@ -415,7 +417,7 @@ $(document).ready(function () {
                     shared: true
                 },
                 plotOptions: {
-                    size:'100%',
+                    size: '100%',
                     column: {
                         stacking: 'percent'
                     }
@@ -527,7 +529,7 @@ $(document).ready(function () {
                     enabled: false
                 },
                 plotOptions: {
-                    size:'100%',
+                    size: '100%',
                     series: {
                         borderWidth: 0,
                         dataLabels: {

@@ -1,5 +1,12 @@
 var mtg = require('mtgtop8');
 console.log('mtg analytics test');
+String.prototype.parseFloat = function(decimal){
+    var floatVal = parseFloat(this.replace(',', '.'));
+    if (decimal){
+        return Math.floor((Math.pow(10, decimal) * floatVal)) / Math.pow(10, decimal);
+    }
+    return floatVal;
+};
 
 $(document).ready(function () {
     var pages = 10;
@@ -723,7 +730,7 @@ $(document).ready(function () {
             for (var m = 0; m < selectedDecks.length; m++) {
                 var deckData = selectedDecks[m];
                 var seriesElement = {
-                    name: deckData.player+'| result: '+deckData.result,
+                    name: deckData.player+'| place: '+deckData.result,
                     deckFinish: deckData.result,
                     player: deckData.player,
                     data: []
@@ -769,10 +776,8 @@ $(document).ready(function () {
                         }
 
                     }
-                    averageArr.push(totalCount/selectedDecks.length)
+                    averageArr.push((totalCount/selectedDecks.length).toString().parseFloat(2));
                 }
-
-
 
             var average =  {
                 name: 'Average',
@@ -782,8 +787,10 @@ $(document).ready(function () {
                     valueSuffix: ' cards'
                 }
             };
-            cardCounts.push(average);
-            
+            if(cardCounts.length > 1){
+                cardCounts.push(average);
+            }
+
             console.log('Archetype: ', randMeta);
             console.log('cards played:',cardsPlayed);
             console.log('Selected decks:', selectedDecks);
@@ -795,7 +802,7 @@ $(document).ready(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'deck compare'
+                    text: randMeta.name+' deck compare'
                 },
                 subtitle: {
                     text: 'decklist analytics'

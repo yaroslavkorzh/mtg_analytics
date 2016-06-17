@@ -113,7 +113,9 @@ $(document).ready(function () {
                 this.renderMetagame();
                 this.analyzeArchetypes();
                 this.renderTest();
+                this.renderDeck();
             }
+
             this.initHandlers();
         };
         controller.initHandlers = function () {
@@ -327,74 +329,6 @@ $(document).ready(function () {
             });
         };
         controller.renderTest = function (format) {
-
-
-            $('#test2').highcharts({
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Monthly Average Rainfall'
-                },
-                subtitle: {
-                    text: 'Source: WorldClimate.com'
-                },
-                xAxis: {
-                    categories: [
-                        'Jan',
-                        'Feb',
-                        'Mar',
-                        'Apr',
-                        'May',
-                        'Jun',
-                        'Jul',
-                        'Aug',
-                        'Sep',
-                        'Oct',
-                        'Nov',
-                        'Dec'
-                    ],
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Rainfall (mm)'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    size: '100%',
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: [{
-                    name: 'Tokyo',
-                    data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-
-                }, {
-                    name: 'New York',
-                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-                }, {
-                    name: 'London',
-                    data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-                }, {
-                    name: 'Berlin',
-                    data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
-                }]
-            });
 
             $('#test3').highcharts({
                 chart: {
@@ -763,8 +697,140 @@ $(document).ready(function () {
             var self = this;
             // prepare data
             var renderData = [];
+            var selectedDecks = [];
+            var randMeta = self.metagame[self.selectedFormat][Math.floor(Math.random() * self.metagame[self.selectedFormat].length)];
+            for (var k = 0; k < self.decks[self.selectedFormat].length; k++) {
+                var deck = self.decks[self.selectedFormat][k];
+                if (deck.title == randMeta.name) {
+                    selectedDecks.push(deck)
+                }
+            }
+
+            var cardsPlayed = [];
+            var cardCounts = [];
+            for (var i = 0; i < selectedDecks.length; i++) {
+                var data = selectedDecks[i];
+                for (var ii = 0; ii < data.cards.length; ii++) {
+                    var card = data.cards[ii]
+                    if(cardsPlayed.indexOf(card.name) == -1){
+                        cardsPlayed.push(card.name)
+                    }
+                    else {
+
+                    }
+                }
+            }
+
+            for (var m = 0; m < selectedDecks.length; m++) {
+                var deckData = selectedDecks[m];
+                var seriesElement = {
+                    name: deckData.player+'| result: '+deckData.result,
+                    deckFinish: deckData.result,
+                    player: deckData.player,
+                    data: []
+                };
+                for (var n = 0; n < cardsPlayed.length; n++) {
+                    var cardName = cardsPlayed[n];
+                    var found = false;
+                    for (var mm = 0; mm < deckData.cards.length; mm++) {
+                        var cardCount = deckData.cards[mm];
+                        if(cardName == cardCount.name){
+                            console.log('found', cardCount.name);
+                            found = true;
+                            seriesElement.data[n] = cardCount.count;
+                        }
+                    }
+                    if(!found){
+                        console.log('not found', cardCount.name)
+                        seriesElement.data[n] = 0;
+                    }
+                }
+                cardCounts.push(seriesElement);
+            }
+            var averageArr = [];
+
+
+                for ( n = 0; n < cardsPlayed.length; n++) {
+                    cardName = cardsPlayed[n];
+                    var totalCount = 0;
+
+                    for (m = 0; m < selectedDecks.length; m++) {
+                        deckData = selectedDecks[m];
+                        found = false;
+                        for (mm = 0; mm < deckData.cards.length; mm++) {
+                            cardCount = deckData.cards[mm];
+                            if (cardName == cardCount.name) {
+                                console.log('found', cardCount.name);
+                                found = true;
+                                totalCount += cardCount.count;
+                            }
+                        }
+                        if (!found) {
+                            console.log('not found', cardCount.name)
+                        }
+
+                    }
+                    averageArr.push(totalCount/selectedDecks.length)
+                }
+
+
+
+            var average =  {
+                name: 'Average',
+                type: 'spline',
+                data: averageArr,
+                tooltip: {
+                    valueSuffix: ' cards'
+                }
+            };
+            cardCounts.push(average);
+            
+            console.log('Archetype: ', randMeta);
+            console.log('cards played:',cardsPlayed);
+            console.log('Selected decks:', selectedDecks);
+            console.log('seriesElement: ', seriesElement);
+
+            $('#test2').highcharts({
+                chart: {
+                    height: 750,
+                    type: 'column'
+                },
+                title: {
+                    text: 'deck compare'
+                },
+                subtitle: {
+                    text: 'decklist analytics'
+                },
+                xAxis: {
+                    categories: cardsPlayed,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Card counts'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:18px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} :</td>' +
+                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    size: '100%',
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: cardCounts
+            });
 
         };
+
 
         /* Utility functions */
         controller.changeFormat = function (newFormat) {

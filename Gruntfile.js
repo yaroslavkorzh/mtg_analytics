@@ -3,7 +3,7 @@ module.exports = function(grunt) {
         browserify: {
             all: {
                 files: {
-                    'app.js': ['js/main.js']
+                    'js/app.js': ['js/main.js']
                 },
                 options: {
 

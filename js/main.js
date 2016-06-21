@@ -1,4 +1,8 @@
-var mtg = require('mtgtop8');
+var mtg = require('./mtgtop8fetch.js');
+var utils = require('./utils.js');
+var filesystem  = require('file-system');
+var fs = require('fs');
+
 console.log('mtg analytics test');
 String.prototype.parseFloat = function(decimal){
     var floatVal = parseFloat(this.replace(',', '.'));
@@ -19,6 +23,82 @@ $(document).ready(function () {
         multidate: true,
         orientation: "top"
     });
+
+    $('.input-daterange input').each(function() {
+        $(this).datepicker("clearDates");
+    });
+
+    var table = $('#example').DataTable( {
+        "columnDefs": [
+            { "visible": false, "targets": 2 }
+        ],
+        "order": [[ 2, 'asc' ]],
+        "displayLength": 25,
+        //"drawCallback": function ( settings ) {
+        //    var api = this.api();
+        //    var rows = api.rows( {page:'current'} ).nodes();
+        //    var last=null;
+        //
+        //    api.column(2, {page:'current'} ).data().each( function ( group, i ) {
+        //        if ( last !== group ) {
+        //            $(rows).eq( i ).before(
+        //                '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+        //            );
+        //
+        //            last = group;
+        //        }
+        //    } );
+        //},
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+
+            // Total over all pages
+            total = api
+                .column( 4 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Total over this page
+            pageTotal = api
+                .column( 4, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Update footer
+            $( api.column( 4 ).footer() ).html(
+                '$'+pageTotal +' ( $'+ total +' total)'
+            );
+        }
+    } );
+
+    $('#example tbody').on( 'mouseenter', 'td', function () {
+        var colIdx = table.cell(this).index().column;
+
+        $( table.cells().nodes() ).removeClass( 'highlight' );
+        $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
+    } );
+    // Order by the grouping
+    //$('#example tbody').on( 'click', 'tr.group', function () {
+    //    var currentOrder = table.order()[0];
+    //    if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
+    //        table.order( [ 2, 'desc' ] ).draw();
+    //    }
+    //    else {
+    //        table.order( [ 2, 'asc' ] ).draw();
+    //    }
+    //} );
 
     /*
      var selDates = ['update'];
@@ -129,8 +209,32 @@ $(document).ready(function () {
             $('#formatSelect').on('change', function (e) {
                 self.changeFormat($(this).val());
                 self.renderMetagame();
-            })
+            });
 
+
+            $( "#project" ).autocomplete({
+                    minLength: 0,
+                    source: self.metagame[self.selectedFormat],
+                    focus: function( event, ui ) {
+                        $( "#project" ).val( ui.item.name );
+                        return false;
+                    },
+                    select: function( event, ui ) {
+                        //$( "#project" ).val( ui.item.name );
+                        //$( "#project-id" ).val( ui.item.count );
+                        //$( "#project-description" ).html( ui.item.name );
+                        //$( "#project-icon" ).attr( "src", "images/" + ui.item.name );
+                        
+                        self.renderDeck(ui.item);
+
+                        return false;
+                    }
+                })
+                .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                return $( "<li>" )
+                    .append( "<a>" + item.name + "<br>" + item.count + "</a>" )
+                    .appendTo( ul );
+            };
         };
         controller.save = function () {
             localStorage.setItem('decks', JSON.stringify(this.decks));
@@ -699,15 +803,23 @@ $(document).ready(function () {
                 }
             });
         };
-        controller.renderDeck = function () {
+        controller.renderDeck = function (decktype) {
             var self = this;
             // prepare data
             var renderData = [];
             var selectedDecks = [];
-            var randMeta = self.metagame[self.selectedFormat][Math.floor(Math.random() * self.metagame[self.selectedFormat].length)];
+            var selectedType;
+            if(!decktype){
+                var randMeta = self.metagame[self.selectedFormat][Math.floor(Math.random() * self.metagame[self.selectedFormat].length)];
+                selectedType = randMeta;
+            }
+            else {
+                selectedType = decktype
+            }
+
             for (var k = 0; k < self.decks[self.selectedFormat].length; k++) {
                 var deck = self.decks[self.selectedFormat][k];
-                if (deck.title == randMeta.name) {
+                if (deck.title == selectedType.name) {
                     selectedDecks.push(deck)
                 }
             }
@@ -791,7 +903,7 @@ $(document).ready(function () {
                 cardCounts.push(average);
             }
 
-            console.log('Archetype: ', randMeta);
+            console.log('Archetype: ', selectedType);
             console.log('cards played:',cardsPlayed);
             console.log('Selected decks:', selectedDecks);
             console.log('seriesElement: ', seriesElement);
@@ -802,7 +914,7 @@ $(document).ready(function () {
                     type: 'column'
                 },
                 title: {
-                    text: randMeta.name+' deck compare'
+                    text: selectedType.name+' deck compare'
                 },
                 subtitle: {
                     text: 'decklist analytics'

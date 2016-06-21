@@ -43,6 +43,11 @@ body{
 .table-condensed{
   width: 100%;
 }
+th { white-space: nowrap; }
+
+td.highlight {
+  background-color: floralwhite !important;
+}
 
 .frame{
   background: #2f2f2f;

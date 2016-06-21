@@ -1,12 +1,14 @@
 var mtg = require('./mtgtop8fetch.js');
 var utils = require('./utils.js');
-var filesystem  = require('file-system');
+var filesystem = require('file-system');
 var fs = require('fs');
 
 console.log('mtg analytics test');
-String.prototype.parseFloat = function(decimal){
+utils.getCard('Tarmogoyf')
+
+String.prototype.parseFloat = function (decimal) {
     var floatVal = parseFloat(this.replace(',', '.'));
-    if (decimal){
+    if (decimal) {
         return Math.floor((Math.pow(10, decimal) * floatVal)) / Math.pow(10, decimal);
     }
     return floatVal;
@@ -24,71 +26,19 @@ $(document).ready(function () {
         orientation: "top"
     });
 
-    $('.input-daterange input').each(function() {
+    $('.decktype.dropdown').dropdown({
+        allowTab: false,
+        onChange: function(e){
+            console.log(e)
+        }
+    });
+
+
+    $('.input-daterange input').each(function () {
         $(this).datepicker("clearDates");
     });
 
-    var table = $('#example').DataTable( {
-        "columnDefs": [
-            { "visible": false, "targets": 2 }
-        ],
-        "order": [[ 2, 'asc' ]],
-        "displayLength": 25,
-        //"drawCallback": function ( settings ) {
-        //    var api = this.api();
-        //    var rows = api.rows( {page:'current'} ).nodes();
-        //    var last=null;
-        //
-        //    api.column(2, {page:'current'} ).data().each( function ( group, i ) {
-        //        if ( last !== group ) {
-        //            $(rows).eq( i ).before(
-        //                '<tr class="group"><td colspan="5">'+group+'</td></tr>'
-        //            );
-        //
-        //            last = group;
-        //        }
-        //    } );
-        //},
-        "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
 
-            // Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-
-            // Total over all pages
-            total = api
-                .column( 4 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-
-            // Total over this page
-            pageTotal = api
-                .column( 4, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-
-            // Update footer
-            $( api.column( 4 ).footer() ).html(
-                '$'+pageTotal +' ( $'+ total +' total)'
-            );
-        }
-    } );
-
-    $('#example tbody').on( 'mouseenter', 'td', function () {
-        var colIdx = table.cell(this).index().column;
-
-        $( table.cells().nodes() ).removeClass( 'highlight' );
-        $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
-    } );
     // Order by the grouping
     //$('#example tbody').on( 'click', 'tr.group', function () {
     //    var currentOrder = table.order()[0];
@@ -212,28 +162,28 @@ $(document).ready(function () {
             });
 
 
-            $( "#project" ).autocomplete({
+            $("#project").autocomplete({
                     minLength: 0,
                     source: self.metagame[self.selectedFormat],
-                    focus: function( event, ui ) {
-                        $( "#project" ).val( ui.item.name );
+                    focus: function (event, ui) {
+                        $("#project").val(ui.item.name);
                         return false;
                     },
-                    select: function( event, ui ) {
+                    select: function (event, ui) {
                         //$( "#project" ).val( ui.item.name );
                         //$( "#project-id" ).val( ui.item.count );
                         //$( "#project-description" ).html( ui.item.name );
                         //$( "#project-icon" ).attr( "src", "images/" + ui.item.name );
-                        
+
                         self.renderDeck(ui.item);
 
                         return false;
                     }
                 })
-                .autocomplete( "instance" )._renderItem = function( ul, item ) {
-                return $( "<li>" )
-                    .append( "<a>" + item.name + "<br>" + item.count + "</a>" )
-                    .appendTo( ul );
+                .autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                    .append("<a>" + item.name + "<br>" + item.count + "</a>")
+                    .appendTo(ul);
             };
         };
         controller.save = function () {
@@ -809,7 +759,7 @@ $(document).ready(function () {
             var renderData = [];
             var selectedDecks = [];
             var selectedType;
-            if(!decktype){
+            if (!decktype) {
                 var randMeta = self.metagame[self.selectedFormat][Math.floor(Math.random() * self.metagame[self.selectedFormat].length)];
                 selectedType = randMeta;
             }
@@ -824,13 +774,17 @@ $(document).ready(function () {
                 }
             }
 
+
+
             var cardsPlayed = [];
             var cardCounts = [];
+            var cardTableData = [];
+            var cardTableColumns = [{title: 'Card'}];
             for (var i = 0; i < selectedDecks.length; i++) {
                 var data = selectedDecks[i];
                 for (var ii = 0; ii < data.cards.length; ii++) {
                     var card = data.cards[ii]
-                    if(cardsPlayed.indexOf(card.name) == -1){
+                    if (cardsPlayed.indexOf(card.name) == -1) {
                         cardsPlayed.push(card.name)
                     }
                     else {
@@ -842,56 +796,115 @@ $(document).ready(function () {
             for (var m = 0; m < selectedDecks.length; m++) {
                 var deckData = selectedDecks[m];
                 var seriesElement = {
-                    name: deckData.player+'| place: '+deckData.result,
+                    name: deckData.player + '| place: ' + deckData.result,
                     deckFinish: deckData.result,
                     player: deckData.player,
                     data: []
                 };
+                cardTableColumns.push({ title: deckData.player + '| place: ' + deckData.result });
                 for (var n = 0; n < cardsPlayed.length; n++) {
                     var cardName = cardsPlayed[n];
                     var found = false;
+                    if(!cardTableData[n]){
+                        cardTableData[n] = [cardName];
+                    }
                     for (var mm = 0; mm < deckData.cards.length; mm++) {
                         var cardCount = deckData.cards[mm];
-                        if(cardName == cardCount.name){
-                            console.log('found', cardCount.name);
+                        if (cardName == cardCount.name) {
+                            //console.log('found', cardCount.name);
                             found = true;
                             seriesElement.data[n] = cardCount.count;
+                            cardTableData[n][m+1] = cardCount.count;
                         }
                     }
-                    if(!found){
-                        console.log('not found', cardCount.name)
+                    if (!found) {
+                        //console.log('not found', cardCount.name)
                         seriesElement.data[n] = 0;
+                        cardTableData[n][m+1] = 0;
                     }
                 }
                 cardCounts.push(seriesElement);
             }
-            var averageArr = [];
 
 
-                for ( n = 0; n < cardsPlayed.length; n++) {
-                    cardName = cardsPlayed[n];
-                    var totalCount = 0;
+            var table = $('#example').DataTable({
+                data: cardTableData,
+                columns: cardTableColumns,
+                "scrollY": 400,
+                "columnDefs": [
+                    {"visible": false, "targets": 0}
+                ],
+                "order": [[0, 'asc']],
+                "displayLength": 25,
+                "drawCallback": function ( settings ) {
 
-                    for (m = 0; m < selectedDecks.length; m++) {
-                        deckData = selectedDecks[m];
-                        found = false;
-                        for (mm = 0; mm < deckData.cards.length; mm++) {
-                            cardCount = deckData.cards[mm];
-                            if (cardName == cardCount.name) {
-                                console.log('found', cardCount.name);
-                                found = true;
-                                totalCount += cardCount.count;
-                            }
-                        }
-                        if (!found) {
-                            console.log('not found', cardCount.name)
-                        }
-
-                    }
-                    averageArr.push((totalCount/selectedDecks.length).toString().parseFloat(2));
+                },
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+                    //
+                    //// Remove the formatting to get integer data for summation
+                    //var intVal = function (i) {
+                    //    return typeof i === 'string' ?
+                    //    i.replace(/[\$,]/g, '') * 1 :
+                    //        typeof i === 'number' ?
+                    //            i : 0;
+                    //};
+                    //
+                    //// Total over all pages
+                    //total = api
+                    //    .column(4)
+                    //    .data()
+                    //    .reduce(function (a, b) {
+                    //        return intVal(a) + intVal(b);
+                    //    }, 0);
+                    //
+                    //// Total over this page
+                    //pageTotal = api
+                    //    .column(4, {page: 'current'})
+                    //    .data()
+                    //    .reduce(function (a, b) {
+                    //        return intVal(a) + intVal(b);
+                    //    }, 0);
+                    //
+                    //// Update footer
+                    //$(api.column(4).footer()).html(
+                    //    '$' + pageTotal + ' ( $' + total + ' total)'
+                    //);
                 }
+            });
 
-            var average =  {
+            $('#example tbody').on('mouseenter', 'td', function () {
+                var colIdx = table.cell(this).index().column;
+
+                $(table.cells().nodes()).removeClass('highlight');
+                $(table.column(colIdx).nodes()).addClass('highlight');
+            });
+
+            var averageArr = [];
+            for (n = 0; n < cardsPlayed.length; n++) {
+                cardName = cardsPlayed[n];
+                var totalCount = 0;
+
+                for (m = 0; m < selectedDecks.length; m++) {
+                    deckData = selectedDecks[m];
+                    found = false;
+                    for (mm = 0; mm < deckData.cards.length; mm++) {
+                        cardCount = deckData.cards[mm];
+                        if (cardName == cardCount.name) {
+                            //console.log('found', cardCount.name);
+                            found = true;
+                            totalCount += cardCount.count;
+                        }
+                    }
+                    if (!found) {
+                        //console.log('not found', cardCount.name)
+                    }
+
+                }
+                averageArr.push((totalCount / selectedDecks.length).toString().parseFloat(2));
+            }
+
+            var average = {
                 name: 'Average',
                 type: 'spline',
                 data: averageArr,
@@ -899,12 +912,12 @@ $(document).ready(function () {
                     valueSuffix: ' cards'
                 }
             };
-            if(cardCounts.length > 1){
+            if (cardCounts.length > 1) {
                 cardCounts.push(average);
             }
 
             console.log('Archetype: ', selectedType);
-            console.log('cards played:',cardsPlayed);
+            console.log('cards played:', cardsPlayed);
             console.log('Selected decks:', selectedDecks);
             console.log('seriesElement: ', seriesElement);
 
@@ -914,7 +927,7 @@ $(document).ready(function () {
                     type: 'column'
                 },
                 title: {
-                    text: selectedType.name+' deck compare'
+                    text: selectedType.name + ' deck compare'
                 },
                 subtitle: {
                     text: 'decklist analytics'

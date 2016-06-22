@@ -7,8 +7,15 @@ body{
 .menu{
   min-width: 310px;
   width: 100%;
-  height: 3%;
+  height: 4%;
+  padding: 3px;
+
+  & .browser-navigate {
+    height: 100%;
+  }
 }
+
+
 .tab{
   min-height: 800px;
   height: 80%;
@@ -43,10 +50,16 @@ body{
 .table-condensed{
   width: 100%;
 }
-th { white-space: nowrap; }
+
+th, td {
+  white-space: nowrap;
+}
 
 td.highlight {
   background-color: floralwhite !important;
+}
+tr.highlight {
+  background-color: darkgrey !important;
 }
 
 .frame{

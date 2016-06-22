@@ -9,7 +9,11 @@ body {
 .menu {
   min-width: 310px;
   width: 100%;
-  height: 3%;
+  height: 4%;
+  padding: 3px;
+}
+.menu .browser-navigate {
+  height: 100%;
 }
 
 .tab {
@@ -46,12 +50,16 @@ body {
   width: 100%;
 }
 
-th {
+th, td {
   white-space: nowrap;
 }
 
 td.highlight {
   background-color: floralwhite !important;
+}
+
+tr.highlight {
+  background-color: darkgrey !important;
 }
 
 .frame {

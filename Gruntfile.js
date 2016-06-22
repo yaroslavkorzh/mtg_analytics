@@ -39,17 +39,11 @@ module.exports = function(grunt) {
         concat: {
             scripts: {
                 files: {
-                    'Dist/scripts/background.js': [
-                        'Dev/scripts/vendor/jquery.js',
-                        'Dev/scripts/background.js'
+                    'Dist/scripts/app.js': [
+                        'js/app.js'
                     ],
-                    'Dist/scripts/browser.js': [
-                        'Dev/scripts/vendor/jquery.js',
-                        'Dev/scripts/browser.js'
-                    ],
-                    'Dist/scripts/inject.js': [
-                        'Dev/scripts/vendor/jquery.js',
-                        'Dev/scripts/inject.js'
+                    'Dist/scripts/lib.js': [
+                        'js/libraries/*.js'
                     ]
                 }
             }
@@ -62,16 +56,15 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'Dist/scripts/background.js': ['Dist/scripts/background.js'],
-                    'Dist/scripts/browser.js': ['Dist/scripts/browser.js'],
-                    'Dist/scripts/inject.js': ['Dist/scripts/inject.js']
+                    'Dist/scripts/app.js': ['Dist/scripts/app.js'],
+                    'Dist/scripts/lib.js': ['Dist/scripts/lib.js']
                 }
             }
         },
         watch: {
             styles: {
                 files: ['styles/**/*.scss'],
-                tasks: ['sass', 'postcss'],
+                tasks: ['sass'],
                 options: {
                     spawn: false
                 }
@@ -93,7 +86,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-newer');
 
     grunt.registerTask("default", ['browserify', "newer:sass", "newer:concat", "watch"]);
-    grunt.registerTask("all", ["sass", "concat", "postcss", 'browserify']);
+    grunt.registerTask("all", ["sass", "concat", 'browserify']);
     grunt.registerTask("dist", ["uglify"]);
 
 };

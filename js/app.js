@@ -5,7 +5,7 @@ var request = require('request');
 var filesystem = require('file-system');
 var fs = require('fs');
 
-console.log('mtg analytics test');
+//console.log('mtg analytics test');
 utils.getCard('Tarmogoyf')
 
 String.prototype.parseFloat = function (decimal) {
@@ -40,13 +40,16 @@ $(document).ready(function () {
         $(this).datepicker("clearDates");
     });
     var calendarId = '5kem7ieveeme63so8i4fdep5c4';
+    var api_key = 'AIzaSyAEe8JX-_4CSzz5PxSOvV79MGEHL-hZ8Bs';
     var options = {
-        url: 'https://www.googleapis.com/calendar/v3/calendars/'+calendarId+'/events'
+        url: 'https://www.wizards.com/Magic/PlaneswalkerPoints/JavaScript/GetEventSummary/7974608'//'https://www.googleapis.com/calendar/v3/calendars/'+calendarId+'/events?key='+api_key
     };
 
+
     function callback(error, response, body) {
+        console.log(error, response, body);
         if (!error && response.statusCode == 200) {
-            console.log(JSON.parse(body));
+
         }
     }
 
@@ -357,7 +360,6 @@ $(document).ready(function () {
                 }
 
             }
-
             // Build the chart
             $('#container').highcharts({
                 chart: {
@@ -878,6 +880,9 @@ $(document).ready(function () {
                     //);
                 }
             });
+            setTimeout(function () {
+                //table.fnAdjustColumnSizing();
+            }, 10 );
 
             $('#example tbody').on('mouseenter', 'td', function () {
                 var colIdx = table.cell(this).index().column;

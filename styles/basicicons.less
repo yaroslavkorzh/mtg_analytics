@@ -1,0 +1,556 @@
+
+
+
+.white-background{
+  border-radius:1em;
+  border:0 solid;
+  background-color:@mana-white;
+}
+
+.blue-background, .blue-background:before {
+  border-radius:1em;
+  border:0 solid;
+  background-color: @mana-blue;
+}
+
+.black-background, .black-background:before {
+  border-radius:1em;
+  border:0 solid;
+  background-color: @mana-black;
+}
+
+.red-background, .red-background:before {
+  border-radius:1em;
+  border:0 solid;
+  background-color: @mana-red;
+}
+
+.green-background, .green-background:before {
+  border-radius:1em;
+  border:0 solid;
+  background-color: @mana-green;
+}
+
+.colorless-background {
+  border-radius:1em;
+  border:0 solid;
+  background-color: @mana-colorless;
+
+}
+
+
+.plains, .plains:before {
+  content: "\e65d";
+  color: @mana-font-black;
+}
+
+.island, .island:before {
+  content: "\e65f";
+  color: @mana-font-black;
+}
+
+.swamp, .swamp:before {
+  content: "\e661";
+  color: @mana-font-black;
+}
+
+.mountain, .mountain:before {
+  content: "\e663";
+  color: @mana-font-black;
+}
+
+.forest, .forest:before {
+  content: "\e665";
+  color: @mana-font-black;
+}
+
+.tap-revised, .tap-3rd {
+  .colorless-background;
+}
+.tap-revised:after, .tap-3rd:after{
+  content: "\e61f";
+  color: @mana-font-black;
+}
+
+.tap-8th {
+  border-radius:1em;
+  background-color: @mana-colorless;
+  &:before {
+    content: "\e622";
+    color: @mana-font-black;
+  }
+  &:after {
+    content: "\e623";
+    margin-left: -1.5em;
+    color: rgb(255, 255, 255);
+
+  }
+}
+
+.untap-8th {
+  border-radius:1em;
+  background-color: @mana-colorless;
+  &:before {
+    content: "\e625";
+    color: rgb(255, 255, 255);
+  }
+  &:after {
+    content: "\e626";
+    margin-left: -1.5em;
+    color: rgb(0, 0, 0);
+  }
+}
+.tap {
+  &:before {
+    content: "\e627";
+    color: rgb(202, 197, 192);
+  }
+  &:after {
+    content: "\e628";
+    margin-left: -1em;
+    color: @mana-font-black;
+  }
+}
+
+.untap{
+  &:before {
+    content: "\e629";
+    color: @mana-font-black;
+  }
+  &:after {
+    content: "\e62a";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+  }
+}
+
+.phyrexian-w {
+  .white-background;
+}
+.phyrexian-w:after {
+  content: "\e62c";
+  color: rgb(17, 18, 18);
+}
+
+.phyrexian-u {
+  .blue-background;
+}
+.phyrexian-u:after {
+  content: "\e62e";
+  color: rgb(17, 18, 18);
+}
+
+.phyrexian-b {
+  .black-background;
+}
+.phyrexian-b:after {
+  content: "\e630";
+  color: rgb(17, 18, 18);
+}
+
+.phyrexian-r {
+  .red-background;
+}
+.phyrexian-r:after {
+  content: "\e632";
+  color: rgb(17, 18, 18);
+}
+
+.phyrexian-g {
+  .green-background;
+}
+.phyrexian-g:after {
+  content: "\e634";
+  color: rgb(17, 18, 18);
+}
+
+.phyrexian:before {
+  content: "\e635";
+  color: @mana-font-black;
+}
+
+.phyrexian-colorless {
+  .colorless-background;
+}
+.phyrexian-colorless:after {
+  content: "\e637";
+  color: rgb(17, 18, 18);
+}
+
+.white, .mana-w {
+  .white-background;
+}
+.white:after, .mana-w:after {
+  .plains;
+}
+
+.blue, .mana-u {
+  .blue-background;
+}
+.blue:after, .mana-u:after {
+  .island;
+}
+
+.black, .mana-b {
+  .black-background;
+}
+.black:after, .mana-b:after  {
+  .swamp;
+}
+
+.red, .mana-r {
+  .red-background;
+}
+.red:after, .mana-r:after  {
+  .mountain;
+}
+
+.green , .mana-g{
+  .green-background;
+}
+.green:after, .mana-g:after  {
+  .forest;
+}
+
+.snow, .mana-snow {
+  border-radius:1em;
+  background-color: @mana-colorless;
+  padding-right:1em;
+  &:before {
+    content: "\e667";
+    color: @mana-font-black;
+  }
+  &:after {
+    content: "\e668\e669\e66a\e66b\e66c\e66d\e66e";
+    letter-spacing:-1em;
+    margin-left: -1.5em;
+    color: rgb(255, 255, 255);
+  }
+}
+
+.mana-0 {
+  .colorless-background;
+}
+.mana-0:after {
+  content: "\e605";
+  color: @mana-font-black;
+}
+
+.mana-1 {
+  .colorless-background;
+}
+.mana-1:after {
+  content: "\e607";
+  color: @mana-font-black;
+}
+
+.mana-2 {
+  .colorless-background;
+}
+.mana-2:after {
+  content: "\e61d";
+
+  color: @mana-font-black;
+
+}
+
+.mana-3 {
+  .colorless-background;
+}
+.mana-3:after {
+  content: "\e670";
+  color: @mana-font-black;
+}
+
+.mana-4 {
+  .colorless-background;
+}
+.mana-4:after {
+  content: "\e672";
+
+  color: @mana-font-black;
+
+}
+
+.mana-5 {
+  .colorless-background;
+}
+.mana-5:after {
+  content: "\e674";
+
+  color: @mana-font-black;
+
+}
+
+.mana-6 {
+  .colorless-background;
+}
+.mana-6:after {
+  content: "\e676";
+
+  color: @mana-font-black;
+
+}
+
+.mana-7 {
+  .colorless-background;
+}
+.mana-7:after {
+  content: "\e678";
+  color: @mana-font-black;
+}
+
+.mana-8 {
+  .colorless-background;
+}
+.mana-8:after {
+  content: "\e67a";
+  color: @mana-font-black;
+}
+
+.mana-9 {
+  .colorless-background;
+}
+.mana-9:after {
+  content: "\e67c";
+  color: @mana-font-black;
+}
+
+.mana-10 {
+  .colorless-background;
+}
+.mana-10:after {
+  content: "\e67e";
+  color: @mana-font-black;
+}
+
+.mana-11 {
+  .colorless-background;
+}
+.mana-11:after {
+  content: "\e680";
+  color: @mana-font-black;
+}
+
+.mana-12 {
+  .colorless-background;
+}
+.mana-12:after {
+  content: "\e682";
+  color: @mana-font-black;
+}
+
+.mana-13 {
+  .colorless-background;
+}
+.mana-13:after {
+  content: "\e684";
+  color: @mana-font-black;
+}
+
+.mana-14 {
+  .colorless-background;
+}
+.mana-14:after {
+  content: "\e686";
+  color: @mana-font-black;
+}
+
+.mana-15 {
+  .colorless-background;
+}
+.mana-15:after {
+  content: "\e688";
+  color: @mana-font-black;
+}
+
+.mana-16 {
+  .colorless-background;
+}
+.mana-16:after {
+  content: "\e68a";
+  color: @mana-font-black;
+}
+
+.mana-17 {
+  .colorless-background;
+}
+.mana-17:after {
+  content: "\e68c";
+  color: @mana-font-black;
+}
+
+.mana-18 {
+  .colorless-background;
+}
+.mana-18:after {
+  content: "\e68e";
+  color: @mana-font-black;
+}
+
+.mana-19 {
+  .colorless-background;
+}
+.mana-19:after {
+  content: "\e690";
+  color: @mana-font-black;
+}
+
+.mana-20 {
+  .colorless-background;
+}
+.mana-20:after {
+  content: "\e692";
+  color: @mana-font-black;
+}
+
+.mana-x {
+  .colorless-background;
+}
+.mana-x:after {
+  content: "\e694";
+  color: @mana-font-black;
+}
+
+.mana-y {
+  .colorless-background;
+}
+.mana-y:after {
+  content: "\e696";
+  color: @mana-font-black;
+}
+
+.mana-z {
+  .colorless-background;
+}
+.mana-z:after {
+  content: "\e698";
+  color: @mana-font-black;
+}
+
+.hybrid {
+  border-radius:1em;
+  padding-right:1em;
+  position: relative;
+  height: 1em;
+
+  &:before {
+    content: "\e618";
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  &:after {
+    width:100%;
+    letter-spacing:-1em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: @mana-font-black;
+  }
+}
+
+.hybrid-wu {
+  &:extend(.hybrid all);
+  background-color: @mana-white;
+  &:before { color: @mana-blue; }
+  &:after { content: "\e603\e602"; }
+}
+
+.hybrid-wb {
+  &:extend(.hybrid all);
+  background-color: @mana-white;
+  &:before { color: @mana-black; }
+  &:after { content: "\e603\e60f"; }
+}
+
+.hybrid-ub {
+  &:extend(.hybrid all);
+  background-color: @mana-blue;
+  &:before { color: @mana-black; }
+  &:after { content: "\e60e\e60f"; }
+}
+
+.hybrid-ur {
+  &:extend(.hybrid all);
+  background-color: @mana-blue;
+  &:before { color: @mana-red; }
+  &:after { content: "\e60e\e612"; }
+}
+
+.hybrid-br {
+  &:extend(.hybrid all);
+  background-color: @mana-black;
+  &:before { color: @mana-red; }
+  &:after { content: "\e617\e612"; }
+}
+
+.hybrid-bg {
+  &:extend(.hybrid all);
+  background-color: @mana-black;
+  &:before { color: @mana-green; }
+  &:after { content: "\e617\e63b"; }
+}
+
+.hybrid-rg {
+  &:extend(.hybrid all);
+  background-color: @mana-red;
+  &:before { color: @mana-green; }
+  &:after { content: "\e63f\e63b"; }
+}
+
+.hybrid-rw {
+  &:extend(.hybrid all);
+  background-color: @mana-red;
+  &:before { color: @mana-white; }
+  &:after { content: "\e63f\e642"; }
+}
+
+.hybrid-gw {
+  &:extend(.hybrid all);
+  background-color: @mana-green;
+  &:before { color: @mana-white; }
+  &:after { content: "\e643\e642"; }
+}
+
+.hybrid-gu {
+  &:extend(.hybrid all);
+  background-color: @mana-green;
+  &:before { color: @mana-blue; }
+  &:after { content: "\e643\e602"; }
+}
+
+.hybrid-2w {
+  &:extend(.hybrid all);
+  background-color: @mana-colorless;
+  &:before { color: @mana-white; }
+  &:after { content: "\e652\e642"; }
+}
+
+.hybrid-2u {
+  &:extend(.hybrid all);
+  background-color: @mana-colorless;
+  &:before { color: @mana-blue; }
+  &:after { content: "\e652\e602"; }
+}
+
+.hybrid-2b {
+  &:extend(.hybrid all);
+  background-color: @mana-colorless;
+  &:before { color: @mana-black; }
+  &:after { content: "\e652\e60f"; }
+}
+
+.hybrid-2r {
+  &:extend(.hybrid all);
+  background-color: @mana-colorless;
+  &:before { color: @mana-red; }
+  &:after { content: "\e652\e612"; }
+}
+
+.hybrid-2g {
+  &:extend(.hybrid all);
+  background-color: @mana-colorless;
+  &:before { color: @mana-green; }
+  &:after { content: "\e652\e63b"; }
+}

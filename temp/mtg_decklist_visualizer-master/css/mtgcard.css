@@ -1,0 +1,91 @@
+body {
+  font-family: "Lato";
+}
+
+#splash {
+  margin-top: 30px;
+}
+
+canvas {
+  margin: 25px;
+}
+
+.bs-example {
+  width: 250px;
+  margin: 0 auto;
+}
+
+.complex-symbol-base:after, .snow:after, .mana-snow:after, .tap-8th:after, .untap-8th:after, .hybrid:after, .hybrid-wu:after, .hybrid-wb:after, .hybrid-ub:after, .hybrid-ur:after, .hybrid-br:after, .hybrid-bg:after, .hybrid-rg:after, .hybrid-rw:after, .hybrid-gw:after, .hybrid-gu:after, .hybrid-2w:after, .hybrid-2u:after, .hybrid-2b:after, .hybrid-2r:after, .hybrid-2g:after {
+  position: relative;
+}
+
+#decklistSpan {
+  display:block;
+  margin-top: 20px;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 1.5px 5px;
+}
+
+.list-group-item {
+  font-size: 11px;
+  padding: 8px 8px;
+}
+
+.mana-symbol {
+  width: 16px;
+  height: 16px;
+}
+
+#deck {
+  resize: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#deckTweet {
+  resize: none;
+  margin-top: 5px;
+}
+
+#decklistvisual {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.pile {
+  position: relative;
+  float: left;
+  width: 223px;
+  height: 310px;
+  margin-right: 10px;
+  margin-bottom: 109px;
+}
+
+.card {
+  position: absolute;
+  width: 223px;
+  height: 310px;
+  border-radius: 13px;
+}
+
+.first {
+}
+
+.second {
+  top: 33px;
+}
+
+.third {
+  top: 66px;
+}
+
+.fourth {
+  top: 99px;
+}

@@ -6,7 +6,10 @@ var filesystem = require('file-system');
 var fs = require('fs');
 
 //console.log('mtg analytics test');
-utils.getCard('Tarmogoyf')
+utils.getCard('Tarmogoyf');
+
+//var mtgparser = require('mtg-parser');
+//var deck = mtgparser(deck_string, 'mtgo');
 
 String.prototype.parseFloat = function (decimal) {
     var floatVal = parseFloat(this.replace(',', '.'));
@@ -28,12 +31,7 @@ $(document).ready(function () {
         orientation: "top"
     });
 
-    $('.decktype.dropdown').dropdown({
-        allowTab: false,
-        onChange: function (e) {
-            console.log(e)
-        }
-    });
+    $('.decktype.dropdown').selectric();
 
 
     $('.input-daterange input').each(function () {
@@ -215,6 +213,23 @@ $(document).ready(function () {
                 console.log('restored events');
                 this.events = JSON.parse(rest_events);
             }
+
+
+            var dd_data = this.metagame[this.selectedFormat];
+            $('#ms-complex-templating').magicSuggest({
+                data: dd_data,
+                allowFreeEntries: false,
+                maxSelection: 1,
+                renderer: function(data){
+                    return '<div style="padding: 5px; overflow:hidden;">' +
+                        '<div style="float: left;"><i class="mtg mana-6"></i><i class="mtg blue"></i><i class="mtg hybrid-ur"></i></div>' +
+                        '<div style="float: left; margin-left: 5px">' +
+                        '<div style="font-weight: bold; color: #333; font-size: 10px; line-height: 11px">' + data.name + '</div>' +
+                        '<div style="color: #999; font-size: 9px">' + data.count + '</div>' +
+                        '</div>' +
+                        '</div><div style="clear:both;"></div>'; // make sure we have closed our dom stuff
+                }
+            });
 
             return result;
         };

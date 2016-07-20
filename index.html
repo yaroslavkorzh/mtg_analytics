@@ -57,7 +57,7 @@
 </div>
 
 
-<div class="ui menu">
+<div class="ui menu hidden">
     <div class="item">
         <div class="ui icon input">
             <input type="text" placeholder="Search...">
@@ -113,51 +113,45 @@
     <div id="test" class="chart-container"></div>
 </div>
 <div class="ui bottom attached tab segment active" data-tab="third">
-    <div id="project-label">Select a project (type "j" for a start):</div>
+    <div class="ui two column grid" style="margin-bottom: 1px; height: 750px;">
+        <div class="three wide column">
+            <div id="project-label">Select a project (type "j" for a start):</div>
 
-    <select class="ui search selection decktype dropdown">
-        <option value="ant">Ant</option>
-        <option value="bird">Bird</option>
-        <option value="cat">Cat</option>
-        <option value="chicken">Chicken</option>
-        <option value="cow">Cow</option>
-        <option value="dog">Dog</option>
-        <option value="elephant">Elephant</option>
-        <option value="fish">Fish</option>
-        <option value="fox">Fox</option>
-        <option value="horse">Horse</option>
-        <option value="kangaroo">Kangaroo</option>
-        <option value="lion">Lion</option>
-        <option value="monkey">Monkey</option>
-        <option value="penguin">Penguin</option>
-        <option value="pig">Pig</option>
-        <option value="rabbit">Rabbit</option>
-        <option value="sheep">Sheep</option>
-        <option value="tiger">Tiger</option>
-        <option value="whale">Whale</option>
-        <option value="wolf">Wolf</option>
-    </select>
+            <!--<select class="ui search selection decktype dropdown">-->
+            <!--<option value="ant">Ant</option>-->
+            <!--<option value="bird">Bird</option>-->
+            <!--<option value="cat">Cat</option>-->
+            <!--<option value="chicken">Chicken</option>-->
+            <!--<option value="cow">Cow</option>-->
+            <!--<option value="dog">Dog</option>-->
+            <!--<option value="elephant">Elephant</option>-->
+            <!--<option value="fish">Fish</option>-->
+            <!--<option value="fox">Fox</option>-->
+            <!--<option value="horse">Horse</option>-->
+            <!--<option value="kangaroo">Kangaroo</option>-->
+            <!--<option value="lion">Lion</option>-->
+            <!--<option value="monkey">Monkey</option>-->
+            <!--<option value="penguin">Penguin</option>-->
+            <!--<option value="pig">Pig</option>-->
+            <!--<option value="rabbit">Rabbit</option>-->
+            <!--<option value="sheep">Sheep</option>-->
+            <!--<option value="tiger">Tiger</option>-->
+            <!--<option value="whale">Whale</option>-->
+            <!--<option value="wolf">Wolf</option>-->
+            <!--</select>-->
 
-    <div class="ms-ctn form-control ms-ctn-focus" style="" id="ms-complex-templating">
-        <span class="ms-helper " style="display: none;"></span>
-
-        <div class="ms-sel-ctn">
-            <input type="text" class="" placeholder="Type or click here" style="width: 487px;">
-
-            <div style="display: none;"></div>
-        </div>
-        <div class="ms-trigger">
-            <div class="ms-trigger-ico">
+            <div class="ms-ctn form-control ms-ctn-focus" style="" id="ms-complex-templating">
 
             </div>
+
+            <!--<img src="/img/104.jpg" >-->
         </div>
+
+        <div class="thirteen wide column">
+            <div id="test2" class="chart-container "></div>
+        </div>
+
     </div>
-
-
-    <div>
-        <div id="test2" class="chart-container "></div>
-    </div>
-
 
     <div id="test5" class="chart-container hidden"></div>
     <div id="test6" class="chart-container hidden"></div>
@@ -205,7 +199,7 @@
 <script src="/js/libraries/bootstrap.min.js"></script>
 <script src="/js/libraries/semantic.min.js"></script>
 
-<script src="/js/libraries/magicsuggest-min.js"></script>
+<script src="/js/libraries/magicsuggest.js"></script>
 <script src="/js/libraries/jquery.dataTables.min.js"></script>
 
 <script src="/js/libraries/jquery.selectric.min.js"></script>

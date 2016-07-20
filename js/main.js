@@ -4,8 +4,12 @@ var request = require('request');
 var filesystem = require('file-system');
 var fs = require('fs');
 
-//console.log('mtg analytics test');
-utils.getCard('Tarmogoyf');
+console.log('mtg analytics test');
+//utils.getCard('Tarmogoyf');
+
+$(document).on('click', function (e) {
+    console.log(e.target);
+});
 
 //var mtgparser = require('mtg-parser');
 //var deck = mtgparser(deck_string, 'mtgo');
@@ -195,6 +199,7 @@ $(document).ready(function () {
             localStorage.setItem('events', JSON.stringify(this.events));
         };
         controller.reload = function () {
+            var self = this;
             var result = false;
             var rest_decks = localStorage.getItem('decks');
             var rest_metagame = localStorage.getItem('metagame');
@@ -213,13 +218,31 @@ $(document).ready(function () {
                 this.events = JSON.parse(rest_events);
             }
 
-
             var dd_data = this.metagame[this.selectedFormat];
-            $('#ms-complex-templating').magicSuggest({
-                data: dd_data,
+            //var archetypeSelect = $('#ms-complex-templating').magicSuggest({
+            //    data: dd_data,
+            //    allowFreeEntries: false,
+            //    useZebraStyle: true,
+            //    maxSelection: 1,
+            //    renderer: function (data) {
+            //        return '<div style="padding: 5px; overflow:hidden;">' +
+            //            '<div style="float: left;"><i class="mtg mana-6"></i><i class="mtg blue"></i><i class="mtg hybrid-ur"></i></div>' +
+            //            '<div style="float: left; margin-left: 5px">' +
+            //            '<div style="font-weight: bold; color: #333; font-size: 10px; line-height: 11px">' + data.name + '</div>' +
+            //            '<div style="color: #999; font-size: 9px">' + data.count + '</div>' +
+            //            '</div>' +
+            //            '</div><div style="clear:both;"></div>'; // make sure we have closed our dom stuff
+            //    }
+            //});
+            debugger;
+            var archetypeSelect = $('#ms-complex-templating').magicSuggest({
+                placeholder: 'Select...',
                 allowFreeEntries: false,
+                data: dd_data,
+                selectionPosition: 'bottom',
+                selectionStacked: true,
                 maxSelection: 1,
-                renderer: function(data){
+                selectionRenderer: function(data){
                     return '<div style="padding: 5px; overflow:hidden;">' +
                         '<div style="float: left;"><i class="mtg mana-6"></i><i class="mtg blue"></i><i class="mtg hybrid-ur"></i></div>' +
                         '<div style="float: left; margin-left: 5px">' +
@@ -229,6 +252,11 @@ $(document).ready(function () {
                         '</div><div style="clear:both;"></div>'; // make sure we have closed our dom stuff
                 }
             });
+
+            $(archetypeSelect).on('selectionchange', function (e, m, data) {
+                self.renderDeck(data[0]);
+            });
+            //self.renderDeck(ui.item);
 
             return result;
         };
@@ -794,202 +822,255 @@ $(document).ready(function () {
             }
 
             var cardsPlayed = [];
-            var cardCounts = [];
-            var cardTableData = [];
-            var cardTableColumns = [{title: 'Card'}];
+            var cardsData = [];
+
             for (var i = 0; i < selectedDecks.length; i++) {
                 var data = selectedDecks[i];
                 for (var ii = 0; ii < data.cards.length; ii++) {
-                    var card = data.cards[ii]
+                    var card = data.cards[ii];
                     if (cardsPlayed.indexOf(card.name) == -1) {
-                        cardsPlayed.push(card.name)
-                        utils.getCard(card.name)
+                        cardsPlayed.push(card.name);
+                        utils.getCard(cardsData, card.name);
                     }
                     else {
 
                     }
                 }
             }
-
-            for (var m = 0; m < selectedDecks.length; m++) {
-                var deckData = selectedDecks[m];
-                var seriesElement = {
-                    name: deckData.player + '| place: ' + deckData.result,
-                    deckFinish: deckData.result,
-                    player: deckData.player,
-                    data: []
-                };
-                cardTableColumns.push({title: deckData.player + '| place: ' + deckData.result});
-                for (var n = 0; n < cardsPlayed.length; n++) {
-                    var cardName = cardsPlayed[n];
-                    var found = false;
-                    if (!cardTableData[n]) {
-                        cardTableData[n] = [cardName];
-                    }
-                    for (var mm = 0; mm < deckData.cards.length; mm++) {
-                        var cardCount = deckData.cards[mm];
-                        if (cardName == cardCount.name) {
-                            //console.log('found', cardCount.name);
-                            found = true;
-                            seriesElement.data[n] = cardCount.count;
-                            cardTableData[n][m + 1] = cardCount.count;
-                        }
-                    }
-                    if (!found) {
-                        //console.log('not found', cardCount.name)
-                        seriesElement.data[n] = 0;
-                        cardTableData[n][m + 1] = 0;
-                    }
-                }
-                cardCounts.push(seriesElement);
-            }
-
-            var table = $('#example').DataTable({
-                data: cardTableData,
-                columns: cardTableColumns,
-                fixedHeader: true,
-                "bPaginate": false,
-                "bFilter": false,
-                "sScrollY": "600",
-                "sScrollX": "100%",
-                "sScrollXInner": "400%",
-                "columnDefs": [
-                    {"visible": true, "targets": 0}
-                ],
-                "order": [[0, 'asc']],
-                "displayLength": 25,
-                "drawCallback": function (settings) {
-
-                },
-                "footerCallback": function (row, data, start, end, display) {
-                    var api = this.api(), data;
-                    //
-                    //// Remove the formatting to get integer data for summation
-                    //var intVal = function (i) {
-                    //    return typeof i === 'string' ?
-                    //    i.replace(/[\$,]/g, '') * 1 :
-                    //        typeof i === 'number' ?
-                    //            i : 0;
-                    //};
-                    //
-                    //// Total over all pages
-                    //total = api
-                    //    .column(4)
-                    //    .data()
-                    //    .reduce(function (a, b) {
-                    //        return intVal(a) + intVal(b);
-                    //    }, 0);
-                    //
-                    //// Total over this page
-                    //pageTotal = api
-                    //    .column(4, {page: 'current'})
-                    //    .data()
-                    //    .reduce(function (a, b) {
-                    //        return intVal(a) + intVal(b);
-                    //    }, 0);
-                    //
-                    //// Update footer
-                    //$(api.column(4).footer()).html(
-                    //    '$' + pageTotal + ' ( $' + total + ' total)'
-                    //);
-                }
-            });
             setTimeout(function () {
-                //table.fnAdjustColumnSizing();
-            }, 10 );
+                var cardCounts = [];
+                var cardTableData = [];
+                var cardTableColumns = [{title: 'Card'}];
+                var cardsPlayed = [];
 
-            $('#example tbody').on('mouseenter', 'td', function () {
-                var colIdx = table.cell(this).index().column;
+                for (var i = 0; i < selectedDecks.length; i++) {
+                    var data = selectedDecks[i];
+                    for (var ii = 0; ii < data.cards.length; ii++) {
+                        var card = data.cards[ii];
+                        if (cardsPlayed.indexOf(card.name) == -1) {
+                            cardsPlayed.push(card.name);
+                        }
+                        else {
 
-                $(table.cells().nodes()).removeClass('highlight');
-
-                //$(table.column(colIdx).nodes()).addClass('highlight');
-                $(this).addClass('highlight');
-            });
-
-            var averageArr = [];
-            for (n = 0; n < cardsPlayed.length; n++) {
-                cardName = cardsPlayed[n];
-                var totalCount = 0;
-
-                for (m = 0; m < selectedDecks.length; m++) {
-                    deckData = selectedDecks[m];
-                    found = false;
-                    for (mm = 0; mm < deckData.cards.length; mm++) {
-                        cardCount = deckData.cards[mm];
-                        if (cardName == cardCount.name) {
-                            //console.log('found', cardCount.name);
-                            found = true;
-                            totalCount += cardCount.count;
                         }
                     }
-                    if (!found) {
-                        //console.log('not found', cardCount.name)
+                }
+
+                for (var m = 0; m < selectedDecks.length; m++) {
+                    console.log('--------------------------');
+                    var deckData = selectedDecks[m];
+                    var seriesElement = {
+                        name: deckData.player + '| place: ' + deckData.result,
+                        deckFinish: deckData.result,
+                        player: deckData.player,
+                        data: []
+                    };
+                    cardTableColumns.push({title: deckData.player + '| place: ' + deckData.result});
+                    for (var mm = 0; mm < cardsPlayed.length; mm++) {
+                        var cardName = cardsPlayed[mm];
+                        //var cardName = cardsData[mm].name;
+                        //console.log(cardsData[mm]);
+                        var found = false;
+                        if (!cardTableData[mm]) {
+                            cardTableData[mm] = [cardName];
+                        }
+                        for (var mmm = 0; mmm < deckData.cards.length; mmm++) {
+                            var cardCount = deckData.cards[mmm];
+                            if (cardName == cardCount.name) {
+                                console.log('found', cardCount);
+                                found = true;
+                                seriesElement.data[mm] = cardCount.count;
+                                cardTableData[mm][m + 1] = cardCount.count;
+                            }
+                        }
+
+                        if (!found) {
+                            console.log('not found', cardCount);
+                            seriesElement.data[mm] = 0;
+                            cardTableData[mm][m + 1] = 0;
+                        }
                     }
-
+                    cardCounts.push(seriesElement);
                 }
-                averageArr.push((totalCount / selectedDecks.length).toString().parseFloat(2));
-            }
 
 
+                //var table = $('#example').DataTable({
+                //    data: cardTableData,
+                //    columns: cardTableColumns,
+                //    fixedHeader: true,
+                //    "bPaginate": false,
+                //    "bFilter": false,
+                //    "sScrollY": "600",
+                //    "sScrollX": "100%",
+                //    "sScrollXInner": "400%",
+                //    "columnDefs": [
+                //        {"visible": true, "targets": 0}
+                //    ],
+                //    "order": [[0, 'asc']],
+                //    "displayLength": 25,
+                //    "drawCallback": function (settings) {
+                //
+                //    },
+                //    "footerCallback": function (row, data, start, end, display) {
+                //        var api = this.api(), data;
+                //        //
+                //        //// Remove the formatting to get integer data for summation
+                //        //var intVal = function (i) {
+                //        //    return typeof i === 'string' ?
+                //        //    i.replace(/[\$,]/g, '') * 1 :
+                //        //        typeof i === 'number' ?
+                //        //            i : 0;
+                //        //};
+                //        //
+                //        //// Total over all pages
+                //        //total = api
+                //        //    .column(4)
+                //        //    .data()
+                //        //    .reduce(function (a, b) {
+                //        //        return intVal(a) + intVal(b);
+                //        //    }, 0);
+                //        //
+                //        //// Total over this page
+                //        //pageTotal = api
+                //        //    .column(4, {page: 'current'})
+                //        //    .data()
+                //        //    .reduce(function (a, b) {
+                //        //        return intVal(a) + intVal(b);
+                //        //    }, 0);
+                //        //
+                //        //// Update footer
+                //        //$(api.column(4).footer()).html(
+                //        //    '$' + pageTotal + ' ( $' + total + ' total)'
+                //        //);
+                //    }
+                //});
+                //setTimeout(function () {
+                //    //table.fnAdjustColumnSizing();
+                //}, 10 );
 
+                $('#example tbody').on('mouseenter', 'td', function () {
+                    var colIdx = table.cell(this).index().column;
 
-            var average = {
-                name: 'Average',
-                type: 'spline',
-                data: averageArr,
-                tooltip: {
-                    valueSuffix: ' cards'
+                    $(table.cells().nodes()).removeClass('highlight');
+
+                    //$(table.column(colIdx).nodes()).addClass('highlight');
+                    $(this).addClass('highlight');
+                });
+
+                var averageArr = [];
+                for (var n = 0; n < cardsPlayed.length; n++) {
+                    cardName = cardsPlayed[n];
+                    var totalCount = 0;
+
+                    for (var nn = 0; nn < selectedDecks.length; nn++) {
+                        deckData = selectedDecks[nn];
+                        var a_found = false;
+
+                        for (var nnn = 0; nnn < deckData.cards.length; nnn++) {
+                            cardCount = deckData.cards[nnn];
+                            if (cardName == cardCount.name) {
+                                //console.log('found', cardCount.name);
+                                a_found = true;
+                                totalCount += cardCount.count;
+                            }
+                        }
+                        if (!a_found) {
+                            //console.log('not found', cardCount.name)
+                        }
+
+                    }
+                    averageArr.push((totalCount / selectedDecks.length).toString().parseFloat(2));
                 }
-            };
 
-            if (cardCounts.length > 1) {
-                cardCounts.push(average);
-            }
+                var average = {
+                    name: 'Average',
+                    type: 'spline',
+                    data: averageArr,
+                    tooltip: {
+                        valueSuffix: ' cards'
+                    }
+                };
 
-            console.log('Archetype: ', selectedType);
-            console.log('cards played:', cardsPlayed);
-            console.log('Selected decks:', selectedDecks);
-            console.log('seriesElement: ', seriesElement);
+                if (cardCounts.length > 1) {
+                    cardCounts.push(average);
+                }
 
-            $('#test2').highcharts({
-                chart: {
-                    height: 750,
-                    type: 'column'
-                },
-                title: {
-                    text: selectedType.name + ' deck compare'
-                },
-                subtitle: {
-                    text: 'decklist analytics'
-                },
-                xAxis: {
-                    categories: cardsPlayed,
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
+                console.log('Archetype: ', selectedType);
+                console.log('cards played:', cardsPlayed);
+                console.log('Selected decks:', selectedDecks);
+                console.log('cardCounts: ', cardCounts);
+
+                $('#test2').highcharts({
+                    chart: {
+                        height: 700,
+                        type: 'column'
+                    },
                     title: {
-                        text: 'Card counts'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:18px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} :</td>' +
-                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    size: '100%',
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: cardCounts
-            });
+                        text: selectedType.name + ' deck compare'
+                    },
+                    subtitle: {
+                        text: 'decklist analytics'
+                    },
+                    xAxis: {
+                        categories: cardsPlayed,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Card counts'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:18px">{point.key}</span><br><div style="font-size:18px"><img src="/img/104.jpg"></div><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name} :</td>' +
+                        '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                        footerFormat: '</table>',
+                        formatter: function () {
+                            var s = '<span style="font-size:18px">' + this.x + '</span><br>';
+                            var index = this.points[0].point.x;
+
+                            for (n = 0; n < cardsData.length; n++) {
+                                var card = cardsData[n];
+                                if (card.name == this.x) {
+                                    var data = card;
+                                }
+                            }
+
+                            var imageUrl = '';
+                            if (data) {
+                                for (n = 0; n < data.data.cards.length; n++) {
+                                    if (data.data.cards[n].imageUrl && this.x.toLowerCase() == data.data.cards[n].name.toLowerCase()) {
+                                        imageUrl = data.data.cards[n].imageUrl;
+                                    }
+                                }
+                            }
+
+                            s += '<span style=""><img src="' + imageUrl + '" style="' + '"></span>';
+                            s += '<table style="margin-top: 3px;">';
+                            $.each(this.points, function () {
+                                s += '<tr><td style="color:{series.color};padding:0">' + this.series.name + '</td>' +
+                                    '<td style="padding:0"> | count: <b>' + this.y + '</b></td></tr>' + '';
+                            });
+
+                            s += '</table>';
+                            var cont = '<div style="width:250px; height:450px;">' + s + '</div>';
+
+                            return cont;
+                        },
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        size: '100%',
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: cardCounts
+                });
+            }, 12000);
 
         };
 

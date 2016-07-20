@@ -14,7 +14,7 @@ function callback(error, response, body) {
 
 
 
-function getCard(name) {
+function getCard(target, name) {
 
     //request(options, callback);
     var nameURL = encodeURIComponent(name);
@@ -29,13 +29,14 @@ function getCard(name) {
 
         },
         success: function (result) {
-            console.log(result)
+            console.log('card ',name, ' fetched:',result);
+            target.push({name : name, data: result});
         },
         error: function (request, status, error) {
             console.log(request, status, error)
         },
         complete: function () {
-            console.log('finish')
+            //console.log('finish')
         }
     });
 

@@ -16,6 +16,11 @@ body {
   height: 100%;
 }
 
+.homepage--teaser {
+  background: url(/img/kaalia.jpg) !important;
+  background-size: cover !important;
+}
+
 .tab {
   margin-bottom: 0;
 }

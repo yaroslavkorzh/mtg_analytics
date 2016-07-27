@@ -12,25 +12,23 @@ function callback(error, response, body) {
     }
 }
 
+function getCard(name, callback) {
 
-
-function getCard(target, name) {
-
-    //request(options, callback);
     var nameURL = encodeURIComponent(name);
     $.ajax({
         url: api_url + "cards",
         type: "GET",
         contentType: "jsonp",
         data: {
-            name : name
+            name : '"'+name+'"'
         },
         beforeSend: function (obj) {
 
         },
         success: function (result) {
             console.log('card ',name, ' fetched:',result);
-            target.push({name : name, data: result});
+
+            callback(result, name);
         },
         error: function (request, status, error) {
             console.log(request, status, error)

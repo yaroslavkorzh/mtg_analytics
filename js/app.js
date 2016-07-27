@@ -220,22 +220,7 @@ $(document).ready(function () {
             }
 
             var dd_data = this.metagame[this.selectedFormat];
-            //var archetypeSelect = $('#ms-complex-templating').magicSuggest({
-            //    data: dd_data,
-            //    allowFreeEntries: false,
-            //    useZebraStyle: true,
-            //    maxSelection: 1,
-            //    renderer: function (data) {
-            //        return '<div style="padding: 5px; overflow:hidden;">' +
-            //            '<div style="float: left;"><i class="mtg mana-6"></i><i class="mtg blue"></i><i class="mtg hybrid-ur"></i></div>' +
-            //            '<div style="float: left; margin-left: 5px">' +
-            //            '<div style="font-weight: bold; color: #333; font-size: 10px; line-height: 11px">' + data.name + '</div>' +
-            //            '<div style="color: #999; font-size: 9px">' + data.count + '</div>' +
-            //            '</div>' +
-            //            '</div><div style="clear:both;"></div>'; // make sure we have closed our dom stuff
-            //    }
-            //});
-            debugger;
+
             var archetypeSelect = $('#ms-complex-templating').magicSuggest({
                 placeholder: 'Select...',
                 allowFreeEntries: false,
@@ -243,12 +228,22 @@ $(document).ready(function () {
                 selectionPosition: 'bottom',
                 selectionStacked: true,
                 maxSelection: 1,
-                selectionRenderer: function(data){
+                renderer: function (data) {
                     return '<div style="padding: 5px; overflow:hidden;">' +
                         '<div style="float: left;"><i class="mtg mana-6"></i><i class="mtg blue"></i><i class="mtg hybrid-ur"></i></div>' +
                         '<div style="float: left; margin-left: 5px">' +
                         '<div style="font-weight: bold; color: #333; font-size: 10px; line-height: 11px">' + data.name + '</div>' +
                         '<div style="color: #999; font-size: 9px">' + data.count + '</div>' +
+                        '</div>' +
+                        '</div><div style="clear:both;"></div>'; // make sure we have closed our dom stuff
+                },
+                selectionRenderer: function (data) {
+
+                    return '<div style="padding: 5px; overflow:hidden;">' +
+                        '<div class="mana-colors" style="float: left;"></div>' +
+                        '<div style="float: left; margin-left: 5px">' +
+                        '<div style="font-weight: bold; color: #333; font-size: 10px; line-height: 11px">' + data.name + '</div>' +
+                        '<div style="color: #999; font-size: 9px"> Submitted decks: ' + '<span style="font-weight: bold; color: #333; font-size: 10px; line-height: 11px">'+data.count +'</span>'+ '</div>' +
                         '</div>' +
                         '</div><div style="clear:both;"></div>'; // make sure we have closed our dom stuff
                 }
@@ -831,19 +826,29 @@ $(document).ready(function () {
                     var card = data.cards[ii];
                     if (cardsPlayed.indexOf(card.name) == -1) {
                         cardsPlayed.push(card.name);
-                        utils.getCard(cardsData, card.name);
+                        utils.getCard(card.name, function(result, cardName){
+                            console.log('got response callback', result);
+                            cardsData.push({name : cardName, data: result});
+                            if(cardsData.length === cardsPlayed.length){
+                                console.log('------------');
+                                console.log('all data fetched');
+
+                                dataFetchedCallback.call(self);
+                            }
+                        });
                     }
                     else {
 
                     }
                 }
             }
-            setTimeout(function () {
+
+
+            function dataFetchedCallback () {
                 var cardCounts = [];
                 var cardTableData = [];
                 var cardTableColumns = [{title: 'Card'}];
                 var cardsPlayed = [];
-
                 for (var i = 0; i < selectedDecks.length; i++) {
                     var data = selectedDecks[i];
                     for (var ii = 0; ii < data.cards.length; ii++) {
@@ -856,6 +861,33 @@ $(document).ready(function () {
                         }
                     }
                 }
+
+                var colors = [];
+                var target = $('.mana-colors');
+                target.html('');
+                
+
+                for (var k = 0; k < cardsData.length; k++) {
+                        var c_data = cardsData[k].data;
+                        if(c_data.cards){
+                            for (var kk = 0; kk < c_data.cards.length; kk++) {
+                                var card = c_data.cards[kk];
+                                if(card.colors){
+                                    for (var kkk = 0; kkk < card.colors.length; kkk++) {
+                                        var color = card.colors[kkk];
+                                        if(colors.indexOf(color) == -1){
+                                            colors.push(color);
+
+                                            $('<i class="mtg '+ color.toLowerCase() +'"></i>').appendTo(target);
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                }
+                console.log('colors', colors);
+                //<i class="mtg mana-6"></i>
 
                 for (var m = 0; m < selectedDecks.length; m++) {
                     console.log('--------------------------');
@@ -1071,7 +1103,7 @@ $(document).ready(function () {
                     },
                     series: cardCounts
                 });
-            }, 12000);
+            }
 
         };
 
@@ -1386,25 +1418,23 @@ function callback(error, response, body) {
     }
 }
 
+function getCard(name, callback) {
 
-
-function getCard(target, name) {
-
-    //request(options, callback);
     var nameURL = encodeURIComponent(name);
     $.ajax({
         url: api_url + "cards",
         type: "GET",
         contentType: "jsonp",
         data: {
-            name : name
+            name : '"'+name+'"'
         },
         beforeSend: function (obj) {
 
         },
         success: function (result) {
             console.log('card ',name, ' fetched:',result);
-            target.push({name : name, data: result});
+
+            callback(result, name);
         },
         error: function (request, status, error) {
             console.log(request, status, error)

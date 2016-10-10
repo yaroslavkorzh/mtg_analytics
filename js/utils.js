@@ -13,7 +13,6 @@ function callback(error, response, body) {
 }
 
 function getCard(name, callback) {
-
     var nameURL = encodeURIComponent(name);
     $.ajax({
         url: api_url + "cards",

@@ -14,6 +14,9 @@ $(document).on('click', function (e) {
 //var mtgparser = require('mtg-parser');
 //var deck = mtgparser(deck_string, 'mtgo');
 
+// http://partner.tcgplayer.com/x3/phl.asmx/p?pk=WORDPRESS&p=forest&s=kaladesh
+
+
 String.prototype.parseFloat = function (decimal) {
     var floatVal = parseFloat(this.replace(',', '.'));
     if (decimal) {

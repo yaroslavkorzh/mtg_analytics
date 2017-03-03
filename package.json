@@ -2,7 +2,7 @@
   "name": "mtganalytics",
   "version": "0.2.2",
   "description": "Get your mtg analytics",
-  "main": "main.js",
+  "main": "server.js",
   "keywords": [
     "mtg",
     "mtgtop8",
@@ -19,6 +19,10 @@
     "mtgtop8.com"
   ],
   "dependencies": {
+    "express" : "~4.5.1",
+    "mongoose" : "~3.8.0",
+    "body-parser" : "~1.4.2",
+    "method-override" : "~2.0.2",
     "file-system": "^2.2.1",
     "mtgsdk": "^0.1.0",
     "mtg-parser": "0.1.0"

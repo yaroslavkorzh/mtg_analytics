@@ -2,6 +2,14 @@
 ## ![Magic the Gathering](http://nerdreactor.com/wp-content/uploads/2016/09/Magic-The-Gathering-logo-800x279.png)
 ### Created this as a dedicated mtg player to connect my Magic the Gathering interests with a passion for data analysis and vizualization.
 Planning a lot of vizualization in different data mining areas of magic the gathering
+
+####Try it
+1. Download the code / clone project from github
+1. Install the npm modules: npm install
+1. Install the bower components: bower install
+1. Start the server: node server.js
+1. Visit the application in your browser at http://localhost:8080
+
 :link:
 
 * Item 1
@@ -78,4 +86,5 @@ It's very easy to make some words **bold** and other words *italic* with Markdow
 - And if you have sub points, put two spaces before the dash or star:
   - Like this
   - And this
+
 

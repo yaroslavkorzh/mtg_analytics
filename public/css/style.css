@@ -1,1 +1,7 @@
 body { padding-top:30px; }
+
+
+.homepage--teaser {
+    background: url(/img/kaalia.jpg) !important;
+    background-size: cover !important;
+}

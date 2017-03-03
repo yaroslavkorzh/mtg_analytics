@@ -5,3 +5,10 @@ body { padding-top:30px; }
     background: url(/img/kaalia.jpg) !important;
     background-size: cover !important;
 }
+
+.homepage--teaser .container {
+    min-height: 400px!important;
+}
+.homepage--teaser .container .content {
+    min-height: 300px!important;
+}

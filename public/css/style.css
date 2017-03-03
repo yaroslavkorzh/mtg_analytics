@@ -9,6 +9,6 @@ body { padding-top:30px; }
 .homepage--teaser .container {
     min-height: 400px!important;
 }
-.homepage--teaser .container .content {
+.homepage--teaser .container .item {
     min-height: 300px!important;
 }

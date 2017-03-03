@@ -1,5 +1,161 @@
 <div class="jumbotron text-center">
-	<h1>Nerds and Proud</h1>
 
-	<p>{{ tagline }}</p>
+	<div class="ui menu hidden">
+		<div class="item">
+			<div class="ui icon input">
+				<input type="text" placeholder="Search...">
+				<i class="search icon"></i>
+
+			</div>
+		</div>
+		<div class="item">
+			<div class="ui icon input">
+				<select id="formatSelect" class="__ts-browser__select semi-square green">
+					<option class="__ts-browser__select--option" value="standart">Standart</option>
+					<option class="__ts-browser__select--option" value="modern">Modern</option>
+					<option class="__ts-browser__select--option" value="legacy">Legacy</option>
+					<option class="__ts-browser__select--option" value="vintage">Vintage</option>
+					<option class="__ts-browser__select--option" value="commander">Commander</option>
+				</select>
+			</div>
+		</div>
+		<div class="item">
+			<div class="ui icon input">
+				<div class="input-group input-daterange">
+					<input type="text" class="form-control" value="2012-04-05">
+					<span class="input-group-addon">to</span>
+					<input type="text" class="form-control" value="2012-04-19">
+				</div>
+			</div>
+		</div>
+		<div class="right item">
+			<div class="ui action input">
+				<input type="menu text ui input browser-navigate" placeholder="Navigate to...">
+
+				<div class="ui button">Go</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="ui top attached tabular menu">
+		<a class="item active" data-tab="first">Metagame</a>
+		<a class="item" data-tab="second">Archetypes</a>
+		<a class="item " data-tab="third">Other data</a>
+		<a class="item" data-tab="fourth">BS Calendar</a>
+		<a class="item" data-tab="five">Google Calendar</a>
+		<a class="item" data-tab="six">test </a>
+		<a class="item" data-tab="seven">test</a>
+		<a class="item" data-tab="eight">test</a>
+
+	</div>
+	<div class="ui bottom attached tab segment" data-tab="first">
+		<div id="container" class="chart-container "></div>
+	</div>
+	<div class="ui bottom attached tab segment " data-tab="second">
+		<div id="test" class="chart-container"></div>
+	</div>
+	<div class="ui bottom attached tab segment active" data-tab="third">
+		<div class="ui two column grid" style="margin-bottom: 1px; height: 750px;">
+			<div class="three wide column">
+				<div id="project-label">Select a deck type:</div>
+
+				<!--<select class="ui search selection decktype dropdown">-->
+				<!--<option value="ant">Ant</option>-->
+				<!--<option value="bird">Bird</option>-->
+				<!--<option value="cat">Cat</option>-->
+				<!--<option value="chicken">Chicken</option>-->
+				<!--<option value="cow">Cow</option>-->
+				<!--<option value="dog">Dog</option>-->
+				<!--<option value="elephant">Elephant</option>-->
+				<!--<option value="fish">Fish</option>-->
+				<!--<option value="fox">Fox</option>-->
+				<!--<option value="horse">Horse</option>-->
+				<!--<option value="kangaroo">Kangaroo</option>-->
+				<!--<option value="lion">Lion</option>-->
+				<!--<option value="monkey">Monkey</option>-->
+				<!--<option value="penguin">Penguin</option>-->
+				<!--<option value="pig">Pig</option>-->
+				<!--<option value="rabbit">Rabbit</option>-->
+				<!--<option value="sheep">Sheep</option>-->
+				<!--<option value="tiger">Tiger</option>-->
+				<!--<option value="whale">Whale</option>-->
+				<!--<option value="wolf">Wolf</option>-->
+				<!--</select>-->
+
+				<div class="ms-ctn form-control ms-ctn-focus" style="" id="ms-complex-templating">
+
+				</div>
+				<a href="javascript:window.print();">print</a>
+				<!--<img src="/img/104.jpg" >-->
+			</div>
+
+
+			<div class="thirteen wide column">
+				<div id="test2" class="chart-container "></div>
+			</div>
+
+		</div>
+
+		<div id="test5" class="chart-container hidden"></div>
+		<div id="test6" class="chart-container hidden"></div>
+		<div id="test7" class="chart-container hidden"></div>
+		<div id="test8" class="chart-container hidden"></div>
+	</div>
+	<div class="ui bottom attached tab segment" data-tab="fourth">
+		<div class="bs-calendar" id="events"></div>
+	</div>
+	<div class="ui bottom attached tab segment" data-tab="five">
+
+
+		<iframe src="https://calendar.google.com/calendar/embed?src=5kem7ieveeme63so8i4fdep5c4%40group.calendar.google.com&ctz=Europe/Kiev"
+				style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+	</div>
+	<div class="ui bottom attached tab segment" data-tab="six">
+
+		<div id="test3" class="chart-container "></div>
+	</div>
+	<div class="ui bottom attached tab segment" data-tab="seven">
+
+
+		<div id="test4" class="chart-container "></div>
+	</div>
+	<div class="ui bottom attached tab segment" data-tab="eight">
+		<table id="example" class="display" cellspacing="0" width="100%">
+			<thead>
+			<tr>
+
+			</tr>
+			</thead>
+			<tfoot>
+			<tr>
+			</tr>
+			</tfoot>
+			<tbody>
+
+			</tbody>
+		</table>
+	</div>
+	<!-- style="min-width: 310px; height: 900px; max-width: 1200px; margin-top: 30px; margin-left: auto; margin-right: auto" -->
+
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/jquery-ui.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/lib/semantic.min.js"></script>
+
+	<script src="js/lib/magicsuggest.js"></script>
+	<script src="js/lib/jquery.dataTables.min.js"></script>
+
+	<script src="js/lib/jquery.selectric.min.js"></script>
+
+	<script src="js/lib/dataTables.semanticui.min.js"></script>
+	<script src="js/lib/dataTables.fixedHeader.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+	<!--<script src="/js/nerd.js"></script>-->
 </div>

@@ -42,13 +42,13 @@
 
 	</script>
 </head>
-<body ng-app="sampleApp" ng-controller="NerdController">
+<body ng-app="sampleApp" ng-controller="MainController">
 <div class="container">
 	
 	<!-- HEADER -->
 	<div class="ui large top fixed menu transition ">
 		<div class="ui container">
-			<a class="navbar-brand active item" href="/">Home</a>
+			<a class="navbar-brand item" href="/" ng-class="{active: 'window.location.pathname == \'/\''}">Home</a>
 			<a class="item" href="/nerds">Nerds</a>
 			<a class="item" href="/geeks">Geeks</a>
 			<a class="item">Analytics</a>

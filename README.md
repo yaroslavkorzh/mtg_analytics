@@ -1,4 +1,5 @@
 # Magic the Gathering analytics website
+## ![Magic the Gathering](http://nerdreactor.com/wp-content/uploads/2016/09/Magic-The-Gathering-logo-800x279.png)
 ### Created this as a dedicated mtg player to connect my Magic the Gathering interests with a passion for data analysis and vizualization.
 Planning a lot of vizualization in different data mining areas of magic the gathering
 :link:
@@ -8,11 +9,7 @@ Planning a lot of vizualization in different data mining areas of magic the gath
   * Item 2a
   * Item 2b
  <br>
- - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
- - [x] list syntax required (any unordered or ordered list supported)
- - [x] this is a complete item
- - [ ] this is an incomplete item
- <br>
+
  1. Item 1
  1. Item 2
  1. Item 3
@@ -31,6 +28,12 @@ function fancyAlert(arg) {
   }
 }
 ```
+
+ - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+ - [x] list syntax required (any unordered or ordered list supported)
+ - [x] this is a complete item
+ - [ ] this is an incomplete item
+ <br>
 
 Emphasis
 
@@ -82,4 +85,3 @@ It's very easy to make some words **bold** and other words *italic* with Markdow
   - Like this
   - And this
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
